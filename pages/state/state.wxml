@@ -1,0 +1,45 @@
+<view class="bg">
+    <!-- 顶部信息 -->
+    <view class='topUserCenter'>
+
+        <view class='userIconView'>
+
+            <view>
+                <image src='{{userinfo.pic}}' />
+            </view>
+
+        </view>
+
+        <view class='userName oneEllipsis'>
+            {{userinfo.name}}
+        </view>
+
+        <view class='userDes'>
+            {{userinfo.note || "这个人很懒，什么也没有写~"}}
+        </view>
+
+    </view>
+
+    <!-- 数据列表 -->
+    <view class='picListView' wx:if="{{contentArr.length}}">
+
+        <view class='picView' data-id="{{item.id}}" data-typeid="{{item.typeid}}" wx:for="{{contentArr}}" wx:key="{{index}}" catchtap="goToDetails">
+            <view class='pic'>
+                <image src='{{item.imgurl}}' />
+            </view>
+            <view class='picTxt'>
+                {{item.title}}
+            </view>
+            <view class='uploadNum'>
+                {{item.download}}次下载
+            </view>
+        </view>
+
+    </view>
+
+    <!-- 没有数据 -->
+    <view class='nocom' wx:if="{{!contentArr.length}}">
+        <image src='/assets/index/nodata.png' />
+        <view>暂时还没有数据亲~</view>
+    </view>
+</view>

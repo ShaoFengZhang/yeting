@@ -1,0 +1,84 @@
+<view class='bg' wx:if="{{apiHaveLoad}}">
+
+    <!-- 顶部图片 -->
+    <view class='topPicView'>
+        <image src='{{contentArr.imgurl}}' />
+    </view>
+
+    <!-- 下载统计 -->
+    <view class='contentStat'>
+        <view class='statView' wx:if="{{!collection}}" catchtap="collectionFun">
+            <image src='/assets/new/collection.png' />
+            <view>收藏{{contentArr.collection}}</view>
+        </view>
+
+        <view class='statView' wx:if="{{collection}}" catchtap="delcollectionFun">
+            <image src='/assets/new/haveCollection.png' />
+            <view>收藏{{contentArr.collection}}</view>
+        </view>
+
+        <view class='mainString'></view>
+
+        <view class='statView' data-src="{{contentArr.imgurl}}" catchtap='drawcanvs'>
+            <image src='/assets/new/upload.png' />
+            <view>下载{{contentArr.download}}</view>
+        </view>
+
+        <view class='mainString'></view>
+
+        <view class='statView'>
+            <image src='/assets/new/share.png' />
+            <view>分享{{contentArr.share}}</view>
+            <button open-type='share' id='shareBtn'></button>
+        </view>
+    </view>
+
+    <!-- 个人推荐框 -->
+    <view class='userView'>
+        <view>
+            <image src='{{contentArr.photo}}' />
+        </view>
+
+        <view class='userName oneEllipsis'>
+            {{contentArr.name}}
+        </view>
+
+        <view class='collectonView' catchtap="fansFocus" wx:if="{{!focus}}">
+            + 关注
+        </view>
+
+        <view class=' collectonView hasCollectonView' catchtap="fansCancelFocus" wx:if="{{focus}}">
+            已关注
+        </view>
+    </view>
+
+    <!-- 热门推荐 -->
+    <view class='rementuijian'>
+        同专辑推荐
+    </view>
+    <!-- 数据列表 -->
+    <view class='picListView' wx:if="{{hotArr.length}}">
+
+        <view class='picView' data-typeid="{{item.typeid}}" data-id="{{item.id}}" wx:for="{{hotArr}}" wx:key="{{index}}" catchtap="refresh">
+            <view class='pic'>
+                <image src='{{item.imgurl}}' />
+            </view>
+            <view class='picTxt'>
+                {{item.title}}
+            </view>
+            <view class='uploadNum'>
+                {{item.download}}次下载
+            </view>
+        </view>
+
+    </view>
+
+    <!-- 没有数据 -->
+    <view class='nocom' wx:if="{{!hotArr.length}}">
+        <image src='/assets/index/nodata.png' />
+        <view>暂时还没有数据亲~</view>
+    </view>
+
+</view>
+
+<canvas canvas-id="canvas" style="width:{{bgimgW}}px;height:{{bgimgH}}px;display:block;position:absolute; bottom:1500px" />

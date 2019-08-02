@@ -1,0 +1,154 @@
+.bg {
+    background: #fff;
+    width: 100%;
+}
+
+.topPicView, .topPicView image {
+    width: 100%;
+    height: 780rpx;
+}
+
+/* 数据分类下载分享的统计框 */
+
+.contentStat {
+    width: 100%;
+    height: 160rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.statView {
+    width: 224rpx;
+    height: 160rpx;
+    color: #8e8e93;
+    font-size: 32rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.statView image {
+    width: 40rpx;
+    height: 40rpx;
+    margin-bottom: 10rpx;
+}
+
+.mainString {
+    width: 2rpx;
+    height: 66rpx;
+    background: rgba(243, 245, 249, 1);
+}
+
+/* 个人推荐框 */
+
+.userView {
+    width: 100%;
+    height: 128rpx;
+    background: #F3F5F9;
+    box-sizing: border-box;
+    padding: 0 64rpx 0 40rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 32rpx;
+}
+
+.userView image{
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.userName{
+    width: 360rpx;
+    margin-left: 20rpx;
+    margin-right: 30rpx;
+    color: #999;
+}
+
+/* 关注按钮 */
+
+.collectonView {
+    width: 180rpx;
+    height: 64rpx;
+    background-color: #ffda44;
+    box-shadow: 0px 20rpx 40rpx 0px rgba(255, 218, 68, 0.3);
+    border-radius: 35rpx;
+    color: #282828;
+    font-size: 32rpx;
+    line-height: 64rpx;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 已关注 */
+
+.hasCollectonView {
+    background: #fff;
+    border: 2px solid rgba(231, 231, 231, 1);
+    box-shadow: 0px 0rpx 0rpx 0px rgba(255, 218, 68, 0.3);
+}
+
+.rementuijian{
+    width: 670rpx;
+    margin: 40rpx auto 24rpx;
+    font-size: 48rpx;
+    color: #282828;
+    font-weight: bold;
+}
+
+/* 列表 */
+
+.picListView {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.picView {
+    width: 320rpx;
+    height: 600rpx;
+    background: #fff;
+    box-shadow: 6rpx 6rpx 20rpx 0px rgba(36, 39, 44, 0.06);
+    border-radius: 20rpx;
+    overflow: hidden;
+    margin-bottom: 30rpx;
+}
+
+.pic, .pic image {
+    width: 320rpx;
+    height: 388rpx;
+    background: rgba(40, 40, 40, 1);
+    box-shadow: 0px 10rpx 20rpx 0px rgba(0, 0, 0, 0.05);
+    border-radius: 20rpx 20rpx 0px 0px;
+}
+
+.picTxt {
+    width: 272rpx;
+    height: 116rpx;
+    font-size: 28rpx;
+    font-weight: 400;
+    color: rgba(40, 40, 40, 1);
+    line-height: 40rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin: 24rpx auto 20rpx;
+}
+
+.uploadNum {
+    height: 32px;
+    font-size: 24rpx;
+    font-weight: 500;
+    color: #999;
+    line-height: 28rpx;
+    margin-left: 24rpx;
+}

@@ -1,0 +1,7 @@
+{
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "发现",
+    "backgroundColor": "#000000",
+    "disableSwipeBack": true,
+    "onReachBottomDistance": 0
+}

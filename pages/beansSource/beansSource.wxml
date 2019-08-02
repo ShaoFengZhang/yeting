@@ -1,0 +1,23 @@
+<view class="bg">
+
+    <view class='sourceView' wx:for="{{beansArr}}" wx:key="{{index}}">
+        <view class='beansInfo'>
+            <view wx:if="{{item.source==1}}" style='font-size:36rpx;color:#262628;'>邀请好友</view>
+            <view wx:if="{{item.source==2}}" style='font-size:36rpx;color:#262628;'>首次点赞/或评论</view>
+            <view wx:if="{{item.source==3}}" style='font-size:36rpx;color:#262628;'>签到奖励</view>
+            <view wx:if="{{item.source==4}}" style='font-size:36rpx;color:#262628;'>首次发布</view>
+            <view wx:if="{{item.source==5}}" style='font-size:36rpx;color:#262628;'>被评论</view>
+            <view wx:if="{{item.source==6}}" style='font-size:36rpx;color:#262628;'>被点赞</view>
+            <view style='font-size:28rpx;color:#999;'>{{item.date}}</view>
+        </view>
+
+        <view class='addBeansNum' style='color:red'>+{{item.beans}}</view>
+    </view>
+
+    <view class='nocom' wx:if="{{!beansArr.length}}">
+        <image src='/assets/index/nodata.png' />
+        <view style='font-weight:bold;margin-bottom:10rpx;'>还没有句豆来源哦~</view>
+        <view>快去发布短句吧~</view>
+    </view>
+
+</view>

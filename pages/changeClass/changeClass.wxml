@@ -1,0 +1,18 @@
+<view class='classView'>
+
+    <scroll-view scroll-y style="height:100vh">
+
+        <view hover-class='hover-class' data-id='{{item.id}}' catchtap='closeClassView' wx:for="{{classArr}}" wx:key="{{index}}" class='classItem oneEllipsis'>
+            {{item.title}}
+            <form bindsubmit="formSubmit" report-submit="{{true}}">
+                <button formType="submit" class='Sbtn'>
+                    <view class='sbtnview'></view>
+                </button>
+            </form>
+        </view>
+
+
+
+    </scroll-view>
+
+</view>

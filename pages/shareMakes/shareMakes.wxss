@@ -1,0 +1,204 @@
+.bg {
+    width: 100%;
+}
+
+.topCard {
+    width: 670rpx;
+    height: 448rpx;
+    background: #fff;
+    box-shadow: 0px 8rpx 32rpx 0px rgba(40, 40, 40, 0.1);
+    margin: 60rpx auto 0;
+    border-radius: 16rpx;
+    overflow: hidden;
+    /* background-repeat: no-repeat;
+    background-position: bottom;
+    background-image: url("https://duanju.58100.com/upload/bg.png");
+    background-size: 100%; */
+}
+
+.qrCode {
+    margin: 40rpx auto 0;
+    position: relative;
+    border: 2rpx solid #27BCAD;
+}
+
+.qrCode, .qrCode image {
+    width: 180rpx;
+    height: 180rpx;
+    border-radius: 50%;
+}
+
+.qrCode image.usericon{
+    width: 76rpx;
+    height: 76rpx;
+    position: absolute;
+    left: 52rpx;
+    top: 52rpx;
+}
+
+.moeditorTxt {
+    text-align: center;
+    width: 100%;
+    height: 44rpx;
+    color: #282828;
+    font-size: 40rpx;
+    font-weight: bold;
+    position: relative;
+    margin-top: 40rpx;
+}
+
+.moeditorTxt text{
+    display: inline-block;
+    width:480rpx;
+}
+
+.moeditorTxt image {
+    width: 32rpx;
+    height: 32rpx;
+    vertical-align: middle;
+    margin-left: 28rpx;
+}
+
+.inputTxtView {
+    width: 590rpx;
+    height: 62rpx;
+    border-bottom: 2rpx solid #d8d8d8;
+    margin: 42rpx auto 0;
+    display: flex;
+    justify-content: space-between;
+}
+
+.inputTxtView input {
+    width: 490rpx;
+    height: 44rpx;
+    color: #282828;
+    font-size: 32rpx;
+}
+
+.placeholder {
+    font-size: 32rpx;
+    color: #999;
+}
+
+.sweepQrTxt {
+    text-align: center;
+    color: #999;
+    font-size: 32rpx;
+    margin-top: 48rpx;
+}
+
+.zidingyiTxt {
+    text-align: center;
+    color: #262628;
+    font-size: 28rpx;
+    margin-top: 40rpx;
+}
+
+.botBtnView {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 226rpx;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 48rpx;
+}
+
+.botBtnView image {
+    width: 96rpx;
+    height: 96rpx;
+    vertical-align: middle;
+}
+
+.shareFriend, .backbtn {
+    width: 116rpx;
+    color: #000;
+    font-size: 28rpx;
+    text-align: center;
+    position: relative;
+}
+
+.focusNum {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+    font-size: 32rpx;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 64rpx;
+}
+
+.focusUserView {
+    width: 100%;
+    height: 78rpx;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+    margin: 32rpx 0;
+    font-size: 28rpx;
+    color: #262628;
+}
+
+.focusUserView image {
+    width: 80rpx;
+    height: 80rpx;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.focustxtView {
+    margin-left: 16rpx;
+}
+
+.rewardView {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(40, 40, 40, 0.7);
+}
+
+.rewardIcon {
+    margin: 92rpx auto 0;
+}
+
+.rewardIcon image,.rewardIcon {
+    width: 676rpx;
+    height: 334rpx;
+    z-index: 999;
+}
+
+.rewardBody {
+    width: 670rpx;
+    height: 600rpx;
+    border-radius: 22rpx;
+    background-color: #fff;
+    margin: -20rpx auto 0;
+    color: #000;
+    overflow: hidden;
+}
+
+.closeReward{
+    margin: 40rpx auto 0;
+}
+
+.closeReward,.closeReward image{
+    width: 70rpx;
+    height: 70rpx;
+}
+
+.rewardTitle{
+    font-size: 48rpx;
+    font-weight: bold;
+    margin-top: 98rpx;
+}
+
+.rewardtxt{
+    font-size: 32rpx;
+    margin-top: 32rpx;
+}
+
+.rewardTitle,.rewardtxt{
+    box-sizing: border-box;
+    padding-left: 60rpx;
+}

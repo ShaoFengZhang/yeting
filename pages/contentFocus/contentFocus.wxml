@@ -1,0 +1,62 @@
+<view class="bg" wx:if="{{apiHaveLoad}}">
+
+
+    <!-- 数据列表 -->
+    <view class='listView'>
+
+        <view class='dominView' wx:for="{{contentArr}}" wx:key="{{index}}">
+
+            <view class='contentImageView' style='position: relative;' data-typeid="{{item.typeid}}" data-id="{{item.id}}" catchtap="goToDetails">
+                <image class='contentImage' src='{{item.imgurl}}' />
+                <view class='userInfoView' data-uid="{{item.uid}}" catchtap="goToUserHome">
+                    <image src='{{item.photo}}' />
+                    <view class='userName oneEllipsis' style='margin-right:12rpx;'>{{item.name}}</view>
+                </view>
+            </view>
+
+            <view class='contentStat'>
+                    <view class='statView' wx:if="{{!item.havcollection}}" catchtap="collectionFun" data-index="{{index}}" data-id="{{item.id}}">
+                        <image src='/assets/new/collection.png'  />
+                        <view>收藏{{item.collection}}</view>
+                    </view>
+
+                    <view class='statView' wx:if="{{item.havcollection}}" catchtap="delcollectionFun" data-index="{{index}}" data-id="{{item.id}}">
+                        <image src='/assets/new/haveCollection.png' />
+                        <view>收藏{{item.collection}}</view>
+                    </view>
+
+                    <view class='mainString'></view>
+
+                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='drawcanvs'>
+                        <image src='/assets/new/upload.png' />
+                        <view>下载{{item.download}}</view>
+                    </view>
+
+                    <view class='mainString'></view>
+
+                    <view class='statView'>
+                        <image src='/assets/new/share.png' />
+                        <view>分享{{item.share}}</view>
+                        <button data-index="{{index}}" open-type='share' id='shareBtn'></button>
+                    </view>
+                </view>
+
+        </view>
+
+    </view>
+
+    <view class='nocom' wx:if="{{!contentArr.length}}">
+        <image src='/assets/index/nodata.png' />
+        <view>暂时还没有数据亲~</view>
+    </view>
+
+    <view class='loading' wx:if="{{ifloadtxt}}">
+        加载中 . . .
+    </view>
+
+    <button catchtap='catchtap' id='getInfoBtn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+    </button>
+
+</view>
+
+<canvas canvas-id="canvas" style="width:{{bgimgW}}px;height:{{bgimgH}}px;display:block;position:absolute; bottom:1500px" />

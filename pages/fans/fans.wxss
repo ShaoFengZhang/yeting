@@ -1,0 +1,27 @@
+.messageItem {
+    width: 100%;
+    height: 100rpx;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+    margin-top: 44rpx;
+    position: relative;
+}
+
+.userIcon, .userIcon image {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 8rpx;
+}
+
+.userIcon {
+    margin-right: 16rpx;
+}
+
+.messageTxt {
+    width: 550rpx;
+    height: 100rpx;
+    text-align: left;
+    margin-right: 20rpx;
+}
+
+

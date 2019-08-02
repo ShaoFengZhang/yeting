@@ -1,0 +1,74 @@
+<view class='bg'>
+
+    <view class='topPicView'>
+        <image src='{{classDes.img}}' />
+    </view>
+
+    <view class='collectionView'>
+
+        <view class='collectionTitle'>
+           {{classDes.txt}}
+        </view>
+
+        <view class='uploadNumtop'>
+            <text>{{picDownloadNum}}次下载</text>
+            <text style='margin-left:40rpx;'>{{picCountNum}}张图片</text>
+        </view>
+
+        <view class='collectionDes'>
+            {{classDes.text}}
+        </view>
+
+        <view class='picListView' wx:if="{{contentArr.length && apiHaveLoad}}">
+
+            <view class='picView' data-typeid="{{item.typeid}}" data-id="{{item.id}}" wx:for="{{contentArr}}" wx:key="{{index}}" catchtap="goToDetails">
+                <view class='pic'>
+                    <image src='{{item.imgurl}}' />
+                </view>
+                <view class='picTxt'>
+                    {{item.title}}
+                </view>
+                <view class='uploadNum'>
+                    {{item.download}}次下载
+                </view>
+            </view>
+
+        </view>
+
+        <view class='nocom' wx:if="{{!contentArr.length && apiHaveLoad}}">
+            <image src='/assets/index/nodata.png' />
+            <view>暂时还没有数据亲~</view>
+        </view>
+
+
+    </view>
+
+    <!-- 返回首页 -->
+    <view class='backHome' catchtap='goToHome'>
+        <image src='/assets/new/backhome.png' />
+    </view>
+
+    <!-- 底部下载统计 -->
+
+    <!-- <view class='contentStat'>
+        <view class='statView'>
+            <image src='/assets/new/collection.png' />
+            <view>收藏1020</view>
+        </view>
+
+        <view class='mainString'></view>
+
+        <view class='statView' data-src="{{'https://pic.rmb.bdstatic.com/6a0f8d8ade90a70f0aa19198b000fe9f1941.gif'}}" catchtap='uploadImage'>
+            <image src='/assets/new/upload.png' />
+            <view>下载1020</view>
+        </view>
+
+        <view class='mainString'></view>
+
+        <view class='statView'>
+            <image src='/assets/new/share.png' />
+            <view>分享1020</view>
+            <button open-type='share' id='shareBtn'></button>
+        </view>
+    </view> -->
+</view>

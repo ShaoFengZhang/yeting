@@ -1,0 +1,71 @@
+<view class="bg">
+
+    <view class='topView'>
+
+        <view class='signView'>
+
+            <view style='color:#282828;font-size:36rpx;font-weight:bold;'>已累计签到{{daynums}}天</view>
+
+            <view class='dayView'>
+                <view class='dayItem' wx:for="{{dayArr}}" wx:key="{{index}}">
+                    <view class='beansNum'>
+                        <image wx:if="{{item.ifSign}}" src='/assets/index/check.png' />
+                        <text wx:if="{{!item.ifSign}}" style='color:#9B9B9B;font-size:24rpx;'>+{{item.beans}}</text>
+                    </view>
+                    <view style='font-size:18rpx;color:#666;margin-top:16rpx;'>{{item.dayTxt}}</view>
+                </view>
+            </view>
+
+            <view wx:if="{{!signBtn}}" class='signBtn' catchtap='{{signClick}}'>立即签到</view>
+            <view wx:if="{{signBtn}}" class=' signBtn haveSignBtn' catchtap='haveSignClick'>已签到</view>
+
+        </view>
+
+    </view>
+
+    <view class='line'></view>
+
+    <view class='Task' style='margin-top:40rpx;'>
+        <text style='font-size:40rpx;font-weight: bold'>新人任务</text>
+        <text catchtap='showbeansMask' style='color:#27BCAD;font-size:24rpx;'>句豆换现金</text>
+    </view>
+
+    <view class='Task' style='margin-top:32rpx;' wx:for="{{taskObj}}" wx:key="{{index}}">
+        <view>
+            <view>{{item.title}}</view>
+            <view style='color:#999;font-size:28rpx;margin-top:10rpx;font-weight:400;'>{{item.content}}</view>
+        </view>
+
+        <view wx:if="{{!item.state}}" class='rightBtn' data-path="{{item.path}}" data-type="{{item.type}}" catchtap='pageNav'>{{item.btnTxt}}</view>
+        <view wx:if="{{item.state}}" class='rightBtn haveComplete'>已完成</view>
+    </view>
+
+    <view class='Task' style='margin-top:32rpx;height:40rpx;'>
+        <view>快去测测你的魅力值吧</view>
+        <navigator target="miniProgram" open-type="navigate" app-id="wxa9889cbb49d3e5d3" path="" extra-data="" version="release"></navigator>
+
+    </view>
+
+    <view style='width:100%;height:30rpx;'></view>
+
+    <button id='getInfoBtn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
+    </button>
+
+    <!-- 什么是句豆 -->
+    <view class='beansRulsView' wx:if="{{ifshowrulesView}}">
+
+        <view class='rulsBody'>
+
+            <scroll-view scroll-y style="height:100%">
+                <image style='width:670rpx' mode='widthFix' src='https://duanju.58100.com/upload/6.png' />
+            </scroll-view>
+
+        </view>
+
+        <view class='closeView' catchtap='showbeansMask'>
+            <image src='/assets/poster/close.png' />
+        </view>
+
+    </view>
+
+</view>

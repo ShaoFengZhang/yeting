@@ -1,0 +1,47 @@
+<view class="bg">
+
+    <view class='userIcon' catchtap='changeUserIcon'>
+        <image src='{{avatarUrl}}' />
+        <form bindsubmit="formSubmit" report-submit="{{true}}">
+            <button formType="submit" class='Sbtn'>
+                <view class='sbtnview'></view>
+            </button>
+        </form>
+    </view>
+
+    <view class='nicheng fontNorm'>昵称</view>
+
+    <view class='userNickName fontNorm'>
+        <view class='oneEllipsis' style='width:620rpx;'>
+            <input bindinput="topbindinput" id='nickNameInput' value="{{userName}}"></input>
+        </view>
+        <view class='deleNickName' style='color:white;'>x</view>
+        <view class='xclass' catchtap='deleNickName'>
+            <form bindsubmit="formSubmit" report-submit="{{true}}">
+                <button formType="submit" class='Sbtn'>
+                    <view class='sbtnview'></view>
+                </button>
+            </form>
+        </view>
+    </view>
+
+    <view class='viewLine'></view>
+
+    <view class='nicheng fontNorm' style='margin-top:32rpx;'>签名</view>
+
+    <view class='fontNorm' style='padding-right: 40rpx;'>
+        <input value='{{signature}}' placeholder-style="color:#AAAAAA;font-size:28rpx;" id='nameInput' placeholder='30个字以内' bindinput="botbindinput"></input>
+    </view>
+
+    <view class='viewLine' style='margin-top:32rpx;'></view>
+
+    <view class="saveBtnView" catchtap='saveUserInfo'>
+        <text>保存</text>
+        <form bindsubmit="formSubmit" report-submit="{{true}}">
+            <button formType="submit" class='Sbtn'>
+                <view class='sbtnview'></view>
+            </button>
+        </form>
+    </view>
+
+</view>

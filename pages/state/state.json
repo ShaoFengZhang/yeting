@@ -1,0 +1,7 @@
+{
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "我的动态",
+    "backgroundColor": "#000000",
+    "enablePullDownRefresh": true,
+    "onReachBottomDistance": 0
+}

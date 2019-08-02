@@ -1,0 +1,57 @@
+<view class="bg">
+
+    <view class='top-swiperView normalView'>
+
+        <swiper id='swiper-ID' display-multiple-items="{{2}}">
+
+            <block wx:for="{{classArr}}" wx:key="index">
+
+                <swiper-item data-id="{{item.id}}" class="{{swiperCurrentIndex==item.id?'select-swiper-css':''}}" bindtap='swiperBindtap'>
+                    <text>{{item.title}}</text>
+                    <text class='swiper-line' wx:if="{{swiperCurrentIndex==item.id}}"></text>
+                </swiper-item>
+
+            </block>
+
+        </swiper>
+
+    </view>
+
+    <view class='viewLine'></view>
+
+    <scroll-view lower-threshold="100" scroll-y style="height:{{scrollHeight}}rpx" bindscrolltolower="bindscrolltolower">
+
+        <view catchtap='goToDetails' data-id='{{item.contentid}}' class='messageItem wrapflex' wx:for="{{messageArr}}" wx:key="{{index}}">
+
+            <view class='userIcon'>
+                <image wx:if="{{!item.photo}}" mode='aspectFill' src='{{item.avatarurl}}' />
+                <image wx:if="{{item.photo}}" mode='aspectFill' src='{{item.photo[0]=="h"?"":srcDomin}}{{item.photo}}' />
+            </view>
+
+            <view class='messageTxt columnflex'>
+
+                <view style='color:#282828;font-size:32rpx;font-weight:bold;' class='oneEllipsis'>{{item.name?item.name:item.nickname}}
+                <text wx:if="{{!item.title}}">赞了你</text>
+                </view>
+
+                <view wx:if="{{item.title}}" style='color:#999999;font-size:28rpx;' class='oneEllipsis'>{{item.title}}</view>
+            </view>
+
+            <view class='contentImg' wx:if="{{item.imgurl}}">
+                <image src='{{srcDomin}}{{item.imgurl[0]}}' />
+            </view>
+
+        </view>
+
+        <!-- <view class='botTxt' wx:if="{{showBotTxt && messageArr.length}}">
+            <text>没有数据了亲~</text>
+        </view> -->
+
+        <view class='nocom' wx:if="{{showBotTxt && !messageArr.length}}">
+            <image src='/assets/index/nodata.png' />
+            <view>空空如也~</view>
+        </view>
+
+    </scroll-view>
+
+</view>

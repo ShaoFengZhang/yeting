@@ -1,0 +1,121 @@
+<view class="bg">
+
+    <view class='topCard'>
+
+        <view class='qrCode'>
+            <image src='{{qrcodeimg}}' mode='scaleToFill' />
+            <image src='{{usericon}}' class='usericon' />
+        </view>
+
+        <view class='moeditorTxt' wx:if="{{!ifshowInput}}">
+            <text>{{inputValue}}</text>
+            <image src='/assets/poster/edit.png' catchtap='editorTxt' />
+        </view>
+
+        <view class='inputTxtView' wx:if="{{ifshowInput}}">
+            <input focus="{{1}}" bindinput="bindinput" value='{{inputValue}}' maxlength="12" placeholder-class='placeholder' placeholder='来麻辣短句，分享你的诗意'></input>
+            <text catchtap='saveTxt' style='color:#27BCAD;font-size:32rpx;font-weight:bold;'>确定</text>
+        </view>
+
+        <view class='sweepQrTxt'>
+            <text>扫码关注我，领句豆换奖品</text>
+        </view>
+
+    </view>
+
+    <view class='zidingyiTxt'>
+        <text>点击上方输入自定义文案</text>
+    </view>
+
+    <view class='botBtnView'>
+        <view class='shareFriend'>
+            <view>
+                <image src='/assets/poster/shareF.png' />
+            </view>
+
+            <view style='height:62rpx;margin-top:16rpx;'>发给朋友</view>
+            <button  id='shareBtn' open-type='share'></button>
+        </view>
+
+        <view class='backbtn' catchtap='savePic'>
+            <view>
+                <image src='/assets/poster/save.png' />
+            </view>
+
+            <view style='height:62rpx;margin-top:16rpx;'>保存名片</view>
+        </view>
+    </view>
+
+    <view class='focusNum'>
+        <text style='color:#282828;'>共有{{focusNum}}人接受了你的邀请</text>
+        <text style='color:#27BCAD;' catchtap='closeReward'>奖励规则</text>
+    </view>
+
+    <view wx:if="{{focusUserArr.length}}" class='focusUserView wrapflex' wx:for="{{focusUserArr}}" wx:key="{{index}}">
+        <view>
+            <image wx:if="{{item.avatarurl}}" src='{{item.avatarurl}}' />
+            <image wx:if="{{!item.avatarurl}}" src='{{srcDomin}}/upload/4.png' />
+        </view>
+
+        <view class='focustxtView'>
+            <!-- <text>{{"小橘子"}}打开了分享对话框的链接</text> -->
+            <view wx:if="{{item.nickname}}" class='oneEllipsis'>{{item.nickname}}扫描了你的分享码</view>
+            <view wx:if="{{!item.nickname}}" class='oneEllipsis'>未授权用户扫描了你的分享码</view>
+            <view wx:if="{{item.rank<=5}}" class='oneEllipsis'>你的句豆增加10</view>
+            <view wx:if="{{item.rank>=6 && item.rank<11}}" class='oneEllipsis'>你的句豆增加15</view>
+            <view wx:if="{{item.rank>=11 && item.rank<21}}" class='oneEllipsis'>你的句豆增加20</view>
+            <view wx:if="{{item.rank>=21}}" class='oneEllipsis'>你的句豆增加25</view>
+        </view>
+    </view>
+
+    <view class='nocom' wx:if="{{showBotTxt && !focusUserArr.length}}">
+        <image src='/assets/index/nodata.png' />
+        <view>暂时还没有数据亲~</view>
+    </view>
+
+    <view class='rewardView' wx:if="{{rewardView}}">
+
+        <view class='rewardIcon'>
+            <image src='/assets/poster/reward.png' />
+        </view>
+
+        <view class='rewardBody'>
+            <view class='rewardTitle'>
+               <text>句豆奖励规则</text> 
+            </view>
+
+            <view class='rewardtxt'>
+               <text>成功邀请好友扫码并关注你</text> 
+               
+            </view>
+
+            <view class='rewardtxt'>
+               <text> 第1-5个新朋友每人为你增加</text> 
+               <text style='color:#FF493A'>句豆+10</text>
+            </view>
+
+            <view class='rewardtxt'>
+               <text> 第6-10个新朋友每人为你增加</text> 
+               <text style='color:#FF493A'>句豆+15</text>
+            </view>
+
+            <view class='rewardtxt'>
+               <text> 第11-15个新朋友每人为你增加</text> 
+               <text style='color:#FF493A'>句豆+20</text>
+            </view>
+
+            <view class='rewardtxt'>
+               <text> 第16-20个新朋友每人为你增加</text> 
+               <text style='color:#FF493A'>句豆+25</text>
+            </view>
+        </view>
+
+        <view class='closeReward' catchtap='closeReward'>
+            <image src='/assets/poster/close.png' />
+        </view>
+
+    </view>
+
+</view>
+
+<canvas canvas-id="canvas" style="width:{{bgimgW}}px;height:{{bgimgH}}px;display:block;position:absolute; bottom:1500px" />

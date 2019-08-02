@@ -1,0 +1,65 @@
+<view class="bg">
+
+    <scroll-view lower-threshold="100" scroll-y style="height:100vh">
+
+        <view data-src='{{item.photo?item.photo:item.avatarurl}}' data-uid="{{item.uid}}" data-note="{{item.note}}" data-openid="{{item.openid}}" data-name="{{item.name?item.name:item.nickname}}" catchtap='gotoUserHome' class='messageItem wrapflex' wx:for="{{messageArr}}"
+            wx:key="{{index}}">
+
+            <view class='userIcon'>
+                <image wx:if="{{!item.photo}}" mode='aspectFill' src='{{item.avatarurl}}' />
+                <image wx:if="{{item.photo}}" mode='aspectFill' src='{{item.photo[0]=="h"?"":srcDomin}}{{item.photo}}' />
+                <form bindsubmit="formSubmit" report-submit="{{true}}">
+                    <button formType="submit" class='Sbtn'>
+                        <view class='sbtnview'></view>
+                    </button>
+                </form>
+            </view>
+
+            <view class='messageTxt columnflex'>
+                <view style='color:#282828;font-size:32rpx;font-weight:bold;' class='oneEllipsis'>{{item.name?item.name:item.nickname}}</view>
+                <view style='color:#999999;font-size:28rpx;' class='oneEllipsis'>{{item.note?item.note:'这个人太懒，啥都不想写~'}}</view>
+                <form bindsubmit="formSubmit" report-submit="{{true}}">
+                    <button formType="submit" class='Sbtn'>
+                        <view class='sbtnview'></view>
+                    </button>
+                </form>
+            </view>
+
+            <view wx:if="{{item.ifcacelfocus}}" data-index="{{index}}" class='attentionTxt attenTxt' catchtap='fansFocus'>
+                <text>关注</text>
+
+                <form bindsubmit="formSubmit" report-submit="{{true}}">
+                    <button formType="submit" class='Sbtn'>
+                        <view class='sbtnview'></view>
+                    </button>
+                </form>
+            </view>
+
+            <view wx:if="{{!item.ifcacelfocus}}" data-index="{{index}}" class='hasAttentionTxt attenTxt' catchtap='fansCancelFocus'>
+                <text>已关注</text>
+
+                <form bindsubmit="formSubmit" report-submit="{{true}}">
+                    <button formType="submit" class='Sbtn'>
+                        <view class='sbtnview'></view>
+                    </button>
+                </form>
+            </view>
+
+            <view class='approve' wx:if="{{!item.ifcacelfocus}}">
+                <image src='/assets/release/approve.png' />
+            </view>
+
+        </view>
+
+        <!-- <view class='botTxt' wx:if="{{showBotTxt && messageArr.length}}">
+            <text>没有数据了亲~</text>
+        </view> -->
+
+        <view class='nocom' wx:if="{{showBotTxt && !messageArr.length}}">
+            <image src='/assets/index/nodata.png' />
+            <view>快去关注些句友吧~</view>
+        </view>
+
+    </scroll-view>
+
+</view>

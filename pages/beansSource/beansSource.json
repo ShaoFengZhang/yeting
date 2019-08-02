@@ -1,0 +1,7 @@
+{
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "句豆来源",
+    "backgroundColor": "#000000",
+    "backgroundTextStyle":"light",
+    "onReachBottomDistance": 0
+}

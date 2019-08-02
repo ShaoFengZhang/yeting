@@ -1,0 +1,118 @@
+.bg {
+    background-color: #fff;
+}
+
+.topPicView, .topPicView image {
+    width: 100%;
+    height: 464rpx;
+}
+
+.collectionView {
+    width: 100%;
+    min-height: 362rpx;
+    background: rgba(255, 255, 255, 1);
+    border-radius: 60rpx 60rpx 0px 0px;
+    position: relative;
+    top: -68rpx;
+    box-sizing: border-box;
+    padding: 34rpx 40rpx 0;
+}
+
+.collectionTitle {
+    color: #171f24;
+    font-size: 56rpx;
+    font-weight: bold;
+}
+
+.uploadNumtop {
+    margin-top: 24rpx;
+    font-size: 32rpx;
+    color: #999;
+}
+
+.collectionDes {
+    width: 100%;
+    max-height: 168rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    color: #171f24;
+    font-size: 36rpx;
+    line-height: 56rpx;
+    margin-top: 24rpx;
+    margin-bottom: 30rpx;
+}
+
+/* .picList image, .picList {
+    width: 670rpx;
+    height: 680rpx;
+    border-radius: 32rpx;
+}
+
+.picList {
+    box-shadow: 0px 16rpx 24rpx 0px rgba(40, 40, 40, 0.2);
+    margin-bottom: 40rpx;
+} */
+
+.backHome,.backHome image {
+    width: 88rpx;
+    height: 88rpx;
+    box-shadow: 0px 16rpx 24rpx 0px rgba(39, 188, 173, 0.3);
+    border-radius: 50%;
+    position: fixed;
+    right: 0;
+    bottom: 300rpx;
+}
+
+
+/* 列表 */
+
+.picListView {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.picView {
+    width: 320rpx;
+    height: 600rpx;
+    background: #fff;
+    box-shadow: 6rpx 6rpx 20rpx 0px rgba(36, 39, 44, 0.06);
+    border-radius: 20rpx;
+    overflow: hidden;
+    margin-bottom: 30rpx;
+}
+
+.pic, .pic image {
+    width: 320rpx;
+    height: 388rpx;
+    background: rgba(40, 40, 40, 1);
+    box-shadow: 0px 10rpx 20rpx 0px rgba(0, 0, 0, 0.05);
+    border-radius: 20rpx 20rpx 0px 0px;
+}
+
+.picTxt {
+    width: 272rpx;
+    height: 116rpx;
+    font-size: 28rpx;
+    font-weight: 400;
+    color: rgba(40, 40, 40, 1);
+    line-height: 40rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    margin: 24rpx auto 20rpx;
+}
+
+.uploadNum {
+    height: 32px;
+    font-size: 24rpx;
+    font-weight: 500;
+    color: rgba(47, 48, 62, 1);
+    line-height: 28rpx;
+    margin-left: 24rpx;
+}

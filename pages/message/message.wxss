@@ -1,0 +1,64 @@
+.messageItem {
+    width: 100%;
+    height: 100rpx;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+    margin-top: 44rpx;
+}
+
+.userIcon,.userIcon image,.contentImg image {
+    width: 100rpx;
+    height: 100rpx;
+    border-radius: 8rpx;
+}
+
+.userIcon{
+    margin-right: 16rpx;
+}
+
+.messageTxt{
+    width: 450rpx;
+    height: 100rpx;
+    text-align: left;
+    margin-right: 20rpx;
+}
+
+.contentImg image{
+    border-radius: 0;
+}
+
+scroll-view{
+    box-sizing: border-box;
+}
+
+/* 顶部swiper */
+.top-swiperView {
+    line-height: 96rpx;
+    font-size: 32rpx;
+    color: #666;
+    text-align: center;
+}
+
+#swiper-ID, .top-swiperView {
+    width: 100%;
+    height: 96rpx;
+}
+
+swiper-item {
+    position: relative;
+}
+
+.select-swiper-css {
+    color: #282828;
+    font-weight: bold;
+}
+
+.swiper-line {
+    position: absolute;
+    bottom: 0;
+    left: 130rpx;
+    display: inline-block;
+    width: 72rpx;
+    height: 6rpx;
+    background: rgba(39, 188, 173, 1);
+}

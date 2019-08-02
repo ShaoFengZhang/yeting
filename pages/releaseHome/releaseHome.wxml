@@ -1,0 +1,71 @@
+<view class="bg" wx:if="{{apiHaveLoad}}">
+
+    <view class='topPic'>
+        <image class='contentImage' src='{{srcDomin}}{{nowPic}}' />
+
+        <textarea value="{{nowTxt}}" bindblur="bindblur" class='txtView' auto-height placeholder="" maxlength="{{50}}" />
+
+        <view class="clickTxt">点击文字可编辑</view>
+    </view>
+
+    <view class='promptWords'>
+        <text style='color:#282828;font-size:40rpx;font-weight:bold;' wx:if="{{nowisTxt==1}}">短句推荐</text>
+        <text style='color:#282828;font-size:40rpx;font-weight:bold;' wx:if="{{nowisTxt==2}}">更换背景图</text>
+        <text style='color:#FF493A;font-size:32rpx;margin-left:16rpx;' wx:if="{{nowisTxt==1}}">*点击可选择短句</text>
+        <text style='color:#FF493A;font-size:32rpx;margin-left:16rpx;' wx:if="{{nowisTxt==2}}">**点击或上传图片可更换背景图</text>
+    </view>
+
+    <view style="height: {{scrollHeight}}rpx;">
+
+        <scroll-view class='txtPicView' scroll-y style="height: {{scrollHeight}}rpx;" >
+
+            <view  class="txtList" wx:if="{{nowisTxt==1}}" wx:for="{{txtArr}}" wx:key="{{index}}" catchtap="selectTxt" data-index="{{index}}">
+                <view class='selectView' wx:if="{{txtindex==index}}">
+                    <view class='point'></view>
+                </view>
+                <view class='selectView nosekectView' wx:if="{{txtindex!=index}}"></view>
+
+                <view class='scrollTxt {{index==txtindex?"havselectScrollTxt":null}}'>
+                    {{item.title}}
+                </view> 
+            </view>
+
+            <view class='picList' wx:if="{{nowisTxt==2}}">
+
+                <view class='uploadImgView' catchtap="changePic">
+                    <image src='/assets/new/wcPic.png' />
+                    <view style='color:#C5C5CA;font-size:28rpx;'>上传图片</view>
+                </view>
+
+                <view class='picItem' wx:for="{{picArr}}" wx:key="{{index}}" data-index="{{index}}" catchtap="selectPic" data-typeid="{{typeid}}">
+                    <image class='{{picindex==index?"selectPicItem":null}}' src='{{srcDomin}}{{item.pic}}' />
+                </view>
+            </view>
+
+        </scroll-view>
+
+    </view>
+
+    <!-- 底部Btn -->
+    <view class='contentStat'>
+        <view class='statView' data-index="1" catchtap="txtPicSwitch">
+            <image src='/assets/new/scTxt.png' wx:if="{{nowisTxt==1}}"/>
+            <image src='/assets/new/wcTxt.png' wx:if="{{nowisTxt==2}}"/>
+            <view>换短句</view>
+        </view>
+
+        <view class='mainString'></view>
+
+        <view class='statView' data-index="2" catchtap="txtPicSwitch">
+            <image src='/assets/new/wcPic.png' wx:if="{{nowisTxt==1}}"/>
+            <image src='/assets/new/scPic.png' wx:if="{{nowisTxt==2}}"/>
+            <view>换图片</view>
+        </view>
+
+        <view class='statView' catchtap="releaseFun">
+            <image style='width:252rpx;height:120rpx;margin-bottom:0rpx;' src='/assets/new/relese.png' />
+        </view>
+    </view>
+
+</view>
+<canvas canvas-id="canvas" style="width:{{bgimgW}}px;height:{{bgimgH}}px;display:block;position:absolute; bottom:1500px" />

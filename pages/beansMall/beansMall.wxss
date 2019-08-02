@@ -1,0 +1,94 @@
+.goodsList {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 32rpx 38rpx 0 42rpx;
+    padding-top: 32rpx;
+}
+
+.goodsView {
+    width: 314rpx;
+    min-height: 502rpx;
+    max-height: 542rpx;
+    margin-bottom: 40rpx;
+    font-size: 28rpx;
+    position: relative;
+}
+
+.goodsFlex {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.goodsImg {
+    width: 314rpx;
+    height: 314rpx;
+    /* border: 2rpx solid rgba(231, 231, 231, 1); */
+    box-sizing: border-box;
+}
+
+.goodsImg, .goodsImg image {
+    border-radius: 10rpx;
+}
+
+.goodsImg image {
+    width: 310rpx;
+    height: 310rpx;
+    vertical-align: middle;
+}
+
+.goodsDes {
+    width: 100%;
+    min-height: 40rpx;
+    max-height: 80rpx;
+    font-size: 28rpx;
+    color: #282828;
+    line-height: 40rpx;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    margin-top: 26rpx;
+    text-align: center;
+}
+
+.goodsDate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 6rpx;
+}
+
+.goodsStatus {
+    width: 228rpx;
+    height: 60rpx;
+    font-size: 32rpx;
+    line-height: 60rpx;
+    text-align: center;
+    border-radius: 44rpx;
+    margin: 16rpx auto 0;
+}
+
+.exchange {
+    color: white;
+    background-color: #27bcad;
+}
+
+.nogoods {
+    color: #999999;
+    background-color: #E7E7E7;
+}
+
+.forward {
+    color: white;
+    background-color: #FF493A;
+}
+
+.mask{
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top:0;
+    left: 0;
+}

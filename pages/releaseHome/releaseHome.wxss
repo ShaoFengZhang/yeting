@@ -1,0 +1,182 @@
+.bg {
+    background-color: #fff;
+}
+
+.topPic, .topPic image {
+    width: 100%;
+    height: 746rpx;
+    position: relative;
+}
+
+.txtView {
+    width: 716rpx;
+    min-height: 206rpx;
+    border: 4rpx dashed rgba(255, 73, 58, 1);
+    position: absolute;
+    top: 256rpx;
+    left: 20rpx;
+    box-sizing: border-box;
+    padding: 10rpx 40rpx;
+    color: #fff;
+    font-size: 40rpx;
+    font-weight: bold;
+    word-wrap: break-word;
+}
+
+.clickTxt {
+    width: 264rpx;
+    height: 64rpx;
+    background: #FF493A;
+    text-align: center;
+    color: #fff;
+    font-size: 32rpx;
+    line-height: 64rpx;
+    position: absolute;
+    top: 188rpx;
+    left: 472rpx;
+
+}
+
+.promptWords {
+    width: 750rpx;
+    height: 88rpx;
+    background: rgba(255, 255, 255, 1);
+    border-bottom: 2rpx solid rgba(231, 231, 231, 1);
+    line-height: 88rpx;
+    box-sizing: border-box;
+    padding: 0 40rpx;
+}
+
+/* 文案列表 */
+
+.txtPicView {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 40rpx 30rpx 0;
+}
+
+.txtList {
+    width: 100%;
+    line-height: 44rpx;
+    font-size: 32rpx;
+    color: #282828;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20rpx;
+}
+
+.selectView {
+    width: 28rpx;
+    height: 28rpx;
+    background: rgba(255, 255, 255, 1);
+    border: 4rpx solid rgba(39, 188, 173, 1);
+    border-radius: 50%;
+    margin-right: 24rpx;
+}
+
+.nosekectView {
+    border: 4rpx solid rgba(231, 231, 231, 1);
+}
+
+.scrollTxt {
+    width: 628rpx;
+    position: relative;
+    top: -6rpx;
+}
+
+.havselectScrollTxt{
+    color: #27BCAD;
+}
+
+.point {
+    width: 12rpx;
+    height: 12rpx;
+    background: rgba(39, 188, 173, 1);
+    border-radius: 50%;
+    margin: 8rpx auto 0;
+}
+
+/* 图片列表 */
+
+.picList {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.uploadImgView {
+    width: 150rpx;
+    height: 148rpx;
+    overflow: hidden;
+    background-color: #f3f5f9;
+    border-radius: 8rpx;
+    text-align: center;
+    margin-right: 28rpx;
+}
+
+.uploadImgView image {
+    width: 72rpx;
+    height: 72rpx;
+    margin-top: 18rpx;
+}
+
+.picItem {
+    margin-right: 28rpx;
+    margin-bottom: 24rpx;
+}
+
+.picItem:nth-child(4n+0) {
+    margin-right: 0rpx;
+}
+
+.picItem image {
+    width: 150rpx;
+    height: 148rpx;
+    border-radius: 8rpx;
+    box-sizing: border-box;
+}
+
+.selectPicItem {
+    border: 4rpx solid #ff493a;
+}
+
+/* 数据分类下载分享的统计框 */
+
+.contentStat {
+    width: 100%;
+    height: 120rpx;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0px -40rpx 40rpx 0px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+}
+
+.statView {
+    width: 224rpx;
+    height: 120rpx;
+    color: #8e8e93;
+    font-size: 32rpx;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.statView image {
+    width: 40rpx;
+    height: 40rpx;
+    margin-bottom: 10rpx;
+}
+
+.mainString {
+    width: 2rpx;
+    height: 66rpx;
+    background: rgba(243, 245, 249, 1);
+}

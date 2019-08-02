@@ -1,0 +1,44 @@
+<view class='bg'>
+
+    <view class='goodsList goodsFlex'>
+
+
+        <view class='goodsView' wx:for="{{mallArr}}" wx:key="{{index}}">
+
+            <view class='goodsImg'>
+                <image mode='aspectFill' src='{{item.icon}}' />
+            </view>
+
+            <view class='goodsDes'>
+                <text decode='1'>{{item.title}}</text>
+            </view>
+
+            <view class='goodsDate'>
+                <text style='color:#FF493A;'>{{item.beans}}句豆</text>
+                <text style='color:#999999'>{{item.people}}次/月</text>
+                <!-- <text style='color:#999999'>剩余x件</text> -->
+            </view>
+
+            <view data-beans='{{item.beans}}' data-id="{{item.id}}" wx:if="{{item.state==1}}" class='exchange goodsStatus' catchtap='nowExchange'>
+                <text>立即兑换</text>
+            </view>
+
+            <view wx:if="{{item.state==3}}" class='goodsStatus nogoods'>
+                <text>抢购一空</text>
+            </view>
+
+            <view wx:if="{{item.state==2}}" class='goodsStatus forward'>
+                <text>敬请期待</text>
+            </view>
+
+            <view wx:if="{{item.state!=1}}" class='mask' catchtap='maskeclick'></view>
+
+        </view>
+    </view>
+
+    <view class='nocom' wx:if="{{!mallArr.length}}">
+        <image src='/assets/index/nodata.png' />
+        <view>暂时还没有数据亲~</view>
+    </view>
+
+</view>
