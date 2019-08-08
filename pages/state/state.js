@@ -47,7 +47,7 @@ Page({
     onPullDownRefresh: function () {
         console.log("onPullDownRefresh")
         let _this = this;
-        this.page == 1;
+        this.page = 1;
         this.setData({
             contentArr: [],
         })

@@ -136,8 +136,8 @@ image {
 
 /* 分类图片 */
 
-.classView{
-    box-shadow:0px 16rpx 24rpx 0px rgba(40,40,40,0.2);
+.classView {
+    box-shadow: 0px 16rpx 24rpx 0px rgba(40, 40, 40, 0.2);
 }
 
 .classView, .classView image {
@@ -233,18 +233,19 @@ image {
 
 .zhitu {
     position: fixed;
-    right: 0rpx;
+    right: 20rpx;
     top: 822rpx;
 }
 
 .zhitu, .zhitu image {
-    width: 88rpx;
-    height: 88rpx;
+    width: 120rpx;
+    height: 120rpx;
     box-shadow: 0px 16rpx 24rpx 0px rgba(255, 218, 68, 0.2);
     border-radius: 50%;
 }
 
 /* shouquan */
+
 #getInfoBtn {
     width: 100vw;
     height: 100vh;
@@ -254,4 +255,52 @@ image {
     opacity: 0;
     padding: 0;
     margin: 0;
+}
+
+/* 首屏推荐 */
+
+.homeView {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    overflow: hidden;
+}
+
+.monthView {
+    width: 312rpx;
+    height: 72rpx;
+    margin: 62rpx auto 0;
+}
+
+.timeDay {
+    text-align: center;
+    color: #e7e7e7;
+    font-size: 32rpx;
+    margin-top: 8rpx;
+}
+
+.daySignImg {
+    margin: 24rpx auto 0;
+}
+
+.daySignImg, .daySignImg image {
+    width: 672rpx;
+    height: 704rpx;
+    border-radius: 16rpx;
+}
+
+.saveBtn {
+    width: 480rpx;
+    height: 94rpx;
+    background: #FFDA44;
+    box-shadow: 0px 20rpx 40rpx 0px rgba(255, 218, 68, 0.3);
+    border-radius: 47rpx;
+    text-align: center;
+    line-height: 94rpx;
+    font-size: 48rpx;
+    font-weight: bold;
+    margin: 40rpx auto 0;
 }

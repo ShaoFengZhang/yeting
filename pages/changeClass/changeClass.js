@@ -43,7 +43,7 @@ Page({
             wx.hideLoading();
             if (res.status == 1) {
                 _this.setData({
-                    classArr: res.type.slice(4)
+                    classArr: res.type.slice(3)
                 });
             }
         })

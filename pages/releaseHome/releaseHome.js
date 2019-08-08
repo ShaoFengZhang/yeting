@@ -14,17 +14,18 @@ Page({
         nowTxt:'',
         nowPic:'201908/5d42b93a363aa.png', 
         apiHaveLoad:0,
+        currentIndex:0,
+        classArr:[],
     },
 
     onLoad: function(options) {
         let _this = this;
 
         this.setData({
-            scrollHeight: (app.windowHeight + app.Bheight) * 750 / app.sysWidth - 954,
+            scrollHeight: (app.windowHeight + app.Bheight) * 750 / app.sysWidth - 892,
         });
 
-        this.getPicContent();
-        this.getTxt();
+        this.getClass();
     },
 
     onShow: function() {
@@ -44,7 +45,9 @@ Page({
         let value = e.detail.value;
         console.log(util.check(value));
         this.setData({
-            nowTxt: value
+            nowTxt: value,
+            releaseId: this.data.picTypeid,
+            haveEdittxt:1,
         })
         if (!util.check(value)) {
             util.toast("请输入有效内容~", 1200);
@@ -59,7 +62,9 @@ Page({
         if (index == this.data.nowisTxt){return};
         this.setData({
             nowisTxt:index,
-        })
+        });
+        index == 1 ? this.getTxt(this.data.classArr[this.data.currentIndex].id) : this.getPicContent(this.data.classArr[this.data.currentIndex].id)
+        
     },
 
     //选文字
@@ -69,6 +74,9 @@ Page({
         this.setData({
             txtindex: index,
             nowTxt:this.data.txtArr[index].title,
+            txtid: this.data.txtArr[index].typeid,
+            releaseId: this.data.txtArr[index].typeid,
+            haveEdittxt: 0,
         })
     },
 
@@ -80,7 +88,22 @@ Page({
             picindex: index,
             nowPic: this.data.picArr[index].pic,
             picTypeid: this.data.picArr[index].typeid,
+            releaseId: this.data.haveEdittxt ? this.data.picArr[index].typeid : this.data.releaseId,
         })
+    },
+
+    //选择分类
+    switchClass:function(e){
+        let index=e.currentTarget.dataset.index;
+        if(index==this.data.currentIndex){
+            return;
+        };
+        this.setData({
+            currentIndex:index,
+            releaseId: index == 1 ? this.data.classArr[index].id : this.data.releaseId
+        });
+        this.data.nowisTxt == 1 ? this.getTxt(this.data.classArr[index].id) : this.getPicContent(this.data.classArr[index].id)
+        
     },
 
     //发布
@@ -89,6 +112,7 @@ Page({
             util.toast("文字不能为空~", 1200);
             return;
         };
+        util.loding('全速发布中~');
         let _this = this;
         let getTxtUrl = loginApi.domin + '/home/index/newuserrelease';
         loginApi.requestUrl(_this, getTxtUrl, "POST", {
@@ -96,10 +120,11 @@ Page({
             "uid": wx.getStorageSync("u_id"),
             "title": this.data.nowTxt,
             "imgurl": this.data.nowPic,
-            "typeid": this.data.picTypeid,
+            "typeid": this.data.releaseId,
         }, function (res) {
             if (res.status == 1) {
-                _this.goToDetails(res.contentid,res.typeid,res.imgurl)
+                _this.goToDetails(res.contentid,res.typeid,res.imgurl);
+                wx.hideLoading();
             }
         })
     },
@@ -113,6 +138,7 @@ Page({
                 nowPic: data.imgurl,
                 picindex:null,
                 picTypeid:7,
+                releaseId:7,
             })
         });
     },
@@ -122,10 +148,12 @@ Page({
     },
 
     //获取图片
-    getPicContent:function(){
+    getPicContent: function (typeid){
         let _this = this;
         let getPicContentUrl = loginApi.domin + '/home/index/fixedpicture';
-        loginApi.requestUrl(_this, getPicContentUrl, "POST", {}, function (res) {
+        loginApi.requestUrl(_this, getPicContentUrl, "POST", {
+            typeid: typeid
+        }, function (res) {
             if (res.status == 1) {
                 _this.setData({
                     picArr: res.picture,
@@ -138,18 +166,39 @@ Page({
     },
 
     //获取文字
-    getTxt:function(){
+    getTxt: function (typeid){
         let _this = this;
         let getTxtUrl = loginApi.domin + '/home/index/fixedtext';
-        loginApi.requestUrl(_this, getTxtUrl, "POST", {}, function (res) {
+        loginApi.requestUrl(_this, getTxtUrl, "POST", {
+            typeid: typeid
+        }, function (res) {
             if (res.status == 1) {
                 _this.setData({
                     txtArr: res.text,
-                    nowTxt: res.text[0].title
+                    nowTxt: _this.data.haveEdittxt ? _this.data.nowTxt:res.text[0].title,
+                    txtid: res.text[0].typeid,
+                    releaseId: res.text[0].typeid,
                 });
             }
         })
     },
+
+    //获取分类
+    getClass: function () {
+        let _this = this;
+        let getClassUrl = loginApi.domin + '/home/index/newtype';
+        loginApi.requestUrl(_this, getClassUrl, "POST", {}, function (res) {
+            if (res.status == 1) {
+                res.type.pop();
+                _this.setData({
+                    classArr: res.type,
+                });
+                _this.getPicContent(res.type[0].id);
+                _this.getTxt(res.type[0].id);
+            }
+        })
+    },
+
 
     // 跳转详情页
     goToDetails: function (id,typeid,saveUrl) {

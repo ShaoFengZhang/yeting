@@ -17,7 +17,8 @@ Page({
         classArr:[{
             id:"",
             title:'推荐',
-        }]
+        }],
+        ifShowHomeView:0,
     },
 
     onLoad: function(options) {
@@ -25,6 +26,8 @@ Page({
         this.page = 1;
         this.rows = 20;
         this.cangetData = true;
+
+        this.getDaySign();
 
         if (app.globalData.userInfo) {
             console.log('if');
@@ -144,7 +147,9 @@ Page({
         console.log(id)
         if (index == this.data.nowCategoryIndex) {
             return;
-        }
+        };
+        this.page = 1;
+        this.rows = 20;
         this.cangetData=true;
         this.setData({
             nowCategoryIndex: index,
@@ -159,7 +164,7 @@ Page({
     onPullDownRefresh: function() {
         console.log("onPullDownRefresh")
         let _this = this;
-        this.page == 1;
+        this.page =1;
         this.setData({
             contentArr: [],
         })
@@ -427,9 +432,37 @@ Page({
         })
     },
 
+    //点击下载图片
+    downloadPicture:function(e){
+        util.loding("全速下载中~")
+        let _this=this;
+        let {
+            index
+        } = e.currentTarget.dataset;
+        let contentid = this.data.contentArr[index].id;
+        let uid=wx.getStorageSync("u_id");
+
+        let downloadPictureUrl = loginApi.domin + '/home/index/downloads';
+        loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
+            contentid: contentid,
+            uid:uid,
+        }, function (res) {
+            if (res.status == 1) {
+                wx.getImageInfo({
+                    src: _this.data.srcDomin + res.path,
+                    success(res) {
+                        _this.uploadImage( res.path, index) 
+                    }
+                });
+            }
+        })
+
+    },
+
     // 点击下载图片
     uploadImage: function(src,index) {
         let _this = this;
+        wx.hideLoading();
         wx.getSetting({
             success(res) {
                 // 进行授权检测，未授权则进行弹层授权
@@ -463,7 +496,7 @@ Page({
         wx.saveImageToPhotosAlbum({
             filePath: src,
             success: function () {
-                _this.downloadNum(_this.data.contentArr[index].id, index)
+                index?_this.downloadNum(_this.data.contentArr[index].id, index):null
                 wx.showModal({
                     title: '保存成功',
                     content: `记得分享哦~`,
@@ -476,7 +509,7 @@ Page({
                 });
             },
             fail: function (data) {
-                _this.downloadNum(_this.data.contentArr[index].id, index)
+                index?_this.downloadNum(_this.data.contentArr[index].id, index):null
                 wx.previewImage({
                     urls: [src]
                 })
@@ -562,4 +595,64 @@ Page({
             }
         })
     },
+
+    // 请求日签
+    getDaySign:function(){
+        let _this = this;
+        let getDaySignUrl = loginApi.domin + '/home/index/daily';
+        loginApi.requestUrl(_this, getDaySignUrl, "POST", {}, function (res) {
+            if (res.status == 1) {
+                _this.setData({
+                    daySignImg: res.weekimg.pic,
+                    daytime:res.date,
+                    mothImg: res.monthimg.pic,
+                    ifShowHomeView:1,
+                });
+            }
+        })
+    },
+
+    // 保存日签
+    saveDaySign:function(){
+        let _this=this;
+        util.loding("全速保存中~")
+        wx.getImageInfo({
+            src: this.data.daySignImg,
+            success(res) {
+                let src=res.path;
+                _this.setData({
+                    ifShowHomeView:0,
+                })
+                wx.getSetting({
+                    success(res) {
+                        // 进行授权检测，未授权则进行弹层授权
+                        if (!res.authSetting['scope.writePhotosAlbum']) {
+                            wx.authorize({
+                                scope: 'scope.writePhotosAlbum',
+                                success() {
+                                    _this.saveImage(src);
+                                },
+                                // 拒绝授权时
+                                fail() {
+                                    _this.saveImage(src);
+                                }
+                            })
+                        } else {
+                            // 已授权则直接进行保存图片
+                            _this.saveImage(src);
+                        }
+                    },
+                    fail(res) {
+                        _this.saveImage(src);
+                    }
+                })
+            }
+        });
+    },
+
+    hideHomeView:function(){
+        this.setData({
+            ifShowHomeView: 0,
+        })
+    }
 })

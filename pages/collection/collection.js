@@ -68,7 +68,7 @@ Page({
     onPullDownRefresh: function () {
         console.log("onPullDownRefresh")
         let _this = this;
-        this.page == 1;
+        this.page =1;
         this.setData({
             contentArr: [],
         })
@@ -231,9 +231,37 @@ Page({
         util.formSubmit(app, e);
     },
 
+    //点击下载图片
+    downloadPicture: function (e) {
+        util.loding("全速下载中~")
+        let _this = this;
+        let {
+            index
+        } = e.currentTarget.dataset;
+        let contentid = this.data.contentArr[index].id;
+        let uid = wx.getStorageSync("u_id");
+
+        let downloadPictureUrl = loginApi.domin + '/home/index/downloads';
+        loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
+            contentid: contentid,
+            uid: uid,
+        }, function (res) {
+            if (res.status == 1) {
+                wx.getImageInfo({
+                    src: _this.data.srcDomin + res.path,
+                    success(res) {
+                        _this.uploadImage(res.path, index)
+                    }
+                });
+            }
+        })
+
+    },
+
     // 点击下载图片
     uploadImage: function (src, index) {
         let _this = this;
+        wx.hideLoading();
         wx.getSetting({
             success(res) {
                 // 进行授权检测，未授权则进行弹层授权

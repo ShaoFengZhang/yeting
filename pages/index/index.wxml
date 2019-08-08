@@ -25,18 +25,18 @@
 
                 <view class='contentStat'>
                     <view class='statView' wx:if="{{!item.havcollection}}" catchtap="collectionFun" data-index="{{index}}" data-id="{{item.id}}">
-                        <image src='/assets/new/collection.png'  />
+                        <image src='/assets/new/collection.png' />
                         <view>收藏{{item.collection}}</view>
                     </view>
 
                     <view class='statView' wx:if="{{item.havcollection}}" catchtap="delcollectionFun" data-index="{{index}}" data-id="{{item.id}}">
                         <image src='/assets/new/haveCollection.png' />
-                        <view>收藏{{item.collection}}</view>
+                        <view style="color:#ffc200">已收藏</view>
                     </view>
 
                     <view class='mainString'></view>
 
-                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='drawcanvs'>
+                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='downloadPicture'>
                         <image src='/assets/new/upload.png' />
                         <view>下载{{item.download}}</view>
                     </view>
@@ -49,6 +49,8 @@
                         <button data-index="{{index}}" open-type='share' id='shareBtn'></button>
                     </view>
                 </view>
+                <ad unit-id="adunit-dbf8383820df9f9b" wx:if="{{index==0 || index==16}}"></ad>
+                <audio></audio>
 
             </view>
 
@@ -59,7 +61,6 @@
                 </view>
             </view>
         </view>
-        <ad style="margin-bottom:40rpx;" wx:if="{{contentArr.length}}" unit-id="adunit-dbf8383820df9f9b"></ad>
 
         <!-- <view class='userFoucsView' catchtap='goToUserHome'>
 
@@ -131,6 +132,25 @@
 
     <button catchtap='catchtap' id='getInfoBtn' wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="getUserInfo">
     </button>
+
+    <!-- 首屏推荐 -->
+    <view class="homeView" wx:if="{{ifShowHomeView}}" catchtap="hideHomeView">
+
+        <view class="monthView">
+            <image src="{{mothImg}}"  style="width:312rpx;height:72rpx;"/>
+        </view>
+
+        <view class="timeDay">
+             {{daytime}}
+        </view>
+
+        <view class="daySignImg">
+            <image src="{{daySignImg}}" />
+        </view>
+
+        <view class="saveBtn" catchtap="saveDaySign">保存图片</view>
+
+    </view>
 
 </view>
 
