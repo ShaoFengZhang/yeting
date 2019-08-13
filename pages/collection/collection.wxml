@@ -27,12 +27,12 @@
 
                     <view class='mainString'></view>
 
-                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='downloadPicture'>
+                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='downloadPicture' wx:if="{{item.type==1}}">
                         <image src='/assets/new/upload.png' />
                         <view>下载{{item.download}}</view>
                     </view>
 
-                    <view class='mainString'></view>
+                    <view class='mainString' wx:if="{{item.type==1}}"></view>
 
                     <view class='statView'>
                         <image src='/assets/new/share.png' />

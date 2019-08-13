@@ -1,6 +1,7 @@
 const domin = "https://duanju.58100.com"; //线上域名
 const srcDomin = domin; //资源域名
 const checkUserUrl = `${domin}/home/index/getuserinfo`;
+// const checkUserUrl = `${domin}/home/index/newinfo`;
 
 let loginNum = 0;
 let checkuserNum = 0;

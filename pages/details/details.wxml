@@ -1,8 +1,13 @@
 <view class='bg' wx:if="{{apiHaveLoad}}">
 
     <!-- 顶部图片 -->
-    <view class='topPicView'>
+    <view class='topPicView' wx:if="{{!ifvideo}}">
         <image src='{{contentArr.imgurl}}' />
+    </view>
+
+    <!-- 顶部视频 -->
+    <view class="topPicView" wx:if="{{ifvideo}}">
+        <video id='myVideo' src="{{contentArr.videourl}}" autoplay="1" controls></video>
     </view>
 
     <!-- 下载统计 -->
@@ -19,12 +24,12 @@
 
         <view class='mainString'></view>
 
-        <view class='statView' data-src="{{contentArr.imgurl}}" catchtap='downloadPicture'>
+        <view wx:if="{{contentArr.type==1}}" class='statView' data-src="{{contentArr.imgurl}}" catchtap='downloadPicture'>
             <image src='/assets/new/upload.png' />
             <view>下载{{contentArr.download}}</view>
         </view>
 
-        <view class='mainString'></view>
+        <view class='mainString' wx:if="{{contentArr.type==1}}"></view>
 
         <view class='statView'>
             <image src='/assets/new/share.png' />

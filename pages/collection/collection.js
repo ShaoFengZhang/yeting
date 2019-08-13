@@ -245,6 +245,7 @@ Page({
         loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
             contentid: contentid,
             uid: uid,
+            type: 1,
         }, function (res) {
             if (res.status == 1) {
                 wx.getImageInfo({

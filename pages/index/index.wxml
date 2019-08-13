@@ -13,6 +13,7 @@
     <view class='listView'>
         <view wx:for="{{contentArr}}" wx:key="{{index}}">
 
+            <!-- 普通列表 -->
             <view class='dominView' wx:if="{{item.type!='class'}}" data-id="{{item.id}}">
 
                 <view class='contentImageView' data-typeid="{{item.typeid}}" data-id="{{item.id}}" style='position: relative;' catchtap="goToDetails">
@@ -36,12 +37,12 @@
 
                     <view class='mainString'></view>
 
-                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='downloadPicture'>
+                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='downloadPicture' wx:if="{{item.type==1}}">
                         <image src='/assets/new/upload.png' />
                         <view>下载{{item.download}}</view>
                     </view>
 
-                    <view class='mainString'></view>
+                    <view class='mainString' wx:if="{{item.type==1}}"></view>
 
                     <view class='statView'>
                         <image src='/assets/new/share.png' />
@@ -49,19 +50,38 @@
                         <button data-index="{{index}}" open-type='share' id='shareBtn'></button>
                     </view>
                 </view>
-                <ad unit-id="adunit-dbf8383820df9f9b" wx:if="{{index==0 || index==16}}"></ad>
-                <audio></audio>
+
+                <!-- 腾讯广告 -->
+                <ad style="margin-bottom:40rpx;" unit-id="adunit-dbf8383820df9f9b" wx:if="{{index==0 || index==18}}"></ad>
+
+                <!-- 马甲的广告 -->
+                <!-- datoutie -->
+                <view wx:if="{{index==8}}" class='classView' style='margin-bottom:40rpx;'>
+                    <image src='https://duanju.58100.com/upload/meilizhi.png'  />
+                    <navigator target="miniProgram" open-type="navigate" app-id="wxa9889cbb49d3e5d3" path="" extra-data="" version="release"></navigator>
+                </view>
+
+                <!-- lvjing -->
+                <view wx:if="{{index==17}}" class='classView' style='margin-bottom:40rpx;'>
+                    <image src='https://duanju.58100.com/upload/datoutie.png'  />
+                    <navigator target="miniProgram" open-type="navigate" app-id="wxffec6b164990d505" path="" extra-data="" version="release"></navigator>
+                </view>
+
+                <!--  -->
 
             </view>
 
+            <!-- 类型分类卡片 -->
             <view data-id="{{item.id}}" wx:if="{{item.type=='class'}}" class='classView' style='margin-bottom:40rpx;' catchtap="goToCollection">
                 <image src='{{item.pic}}' />
                 <view class='clickSee'>
                     点击查看
                 </view>
             </view>
+
         </view>
 
+        <!-- 个人主页查看 -->
         <!-- <view class='userFoucsView' catchtap='goToUserHome'>
 
             <view class='userCenter'>
@@ -92,6 +112,7 @@
 
     </view>
 
+    <!-- 暂时没有数据 -->
     <view class='nocom' wx:if="{{!contentArr.length}}">
         <image src='/assets/index/nodata.png' />
         <view>暂时还没有数据亲~</view>
@@ -122,10 +143,12 @@
 
     </view>
 
+    <!-- 制图按钮 -->
     <view class='zhitu' catchtap='goToZhiTu'>
         <image src='/assets/new/drawing.png' />
     </view>
 
+    <!-- 加载中 -->
     <view class='loading' wx:if="{{ifloadtxt}}">
         加载中 . . .
     </view>
@@ -137,15 +160,15 @@
     <view class="homeView" wx:if="{{ifShowHomeView}}" catchtap="hideHomeView">
 
         <view class="monthView">
-            <image src="{{mothImg}}"  style="width:312rpx;height:72rpx;"/>
+            <image src="{{mothImg}}" style="width:312rpx;height:72rpx;" />
         </view>
 
         <view class="timeDay">
-             {{daytime}}
+            {{daytime}}
         </view>
 
         <view class="daySignImg">
-            <image src="{{daySignImg}}" />
+            <image src="{{daySignImg}}"/>
         </view>
 
         <view class="saveBtn" catchtap="saveDaySign">保存图片</view>

@@ -24,7 +24,7 @@ Page({
     onLoad: function(options) {
         let _this = this;
         this.page = 1;
-        this.rows = 20;
+        this.rows = 10;
         this.cangetData = true;
 
         this.getDaySign();
@@ -110,7 +110,7 @@ Page({
         // 切换分类
         if (wx.getStorageSync('classType')) {
             this.page = 1;
-            this.rows = 20;
+            this.rows = 10;
             this.cangetData = true;
             this.setData({
                 classType: wx.getStorageSync('classType'),
@@ -149,7 +149,7 @@ Page({
             return;
         };
         this.page = 1;
-        this.rows = 20;
+        this.rows = 10;
         this.cangetData=true;
         this.setData({
             nowCategoryIndex: index,
@@ -180,7 +180,6 @@ Page({
             this.bottomTime = setTimeout(() => {
                 this.getContent(this.data.classType);
             }, 1000)
-
         }
     },
 
@@ -446,6 +445,7 @@ Page({
         loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
             contentid: contentid,
             uid:uid,
+            type:1,
         }, function (res) {
             if (res.status == 1) {
                 wx.getImageInfo({
@@ -496,7 +496,7 @@ Page({
         wx.saveImageToPhotosAlbum({
             filePath: src,
             success: function () {
-                index?_this.downloadNum(_this.data.contentArr[index].id, index):null
+                index!='sign'?_this.downloadNum(_this.data.contentArr[index].id, index):null
                 wx.showModal({
                     title: '保存成功',
                     content: `记得分享哦~`,
@@ -509,7 +509,7 @@ Page({
                 });
             },
             fail: function (data) {
-                index?_this.downloadNum(_this.data.contentArr[index].id, index):null
+                index !='sign'?_this.downloadNum(_this.data.contentArr[index].id, index):null
                 wx.previewImage({
                     urls: [src]
                 })
@@ -602,6 +602,11 @@ Page({
         let getDaySignUrl = loginApi.domin + '/home/index/daily';
         loginApi.requestUrl(_this, getDaySignUrl, "POST", {}, function (res) {
             if (res.status == 1) {
+                if (wx.getStorageSync("sign") == res.weekimg.id){
+                    return;
+                }else{
+                    wx.setStorageSync("sign", res.weekimg.id)
+                }
                 _this.setData({
                     daySignImg: res.weekimg.pic,
                     daytime:res.date,
@@ -630,20 +635,20 @@ Page({
                             wx.authorize({
                                 scope: 'scope.writePhotosAlbum',
                                 success() {
-                                    _this.saveImage(src);
+                                    _this.saveImage(src,'sign');
                                 },
                                 // 拒绝授权时
                                 fail() {
-                                    _this.saveImage(src);
+                                    _this.saveImage(src,'sign');
                                 }
                             })
                         } else {
                             // 已授权则直接进行保存图片
-                            _this.saveImage(src);
+                            _this.saveImage(src,'sign');
                         }
                     },
                     fail(res) {
-                        _this.saveImage(src);
+                        _this.saveImage(src,'sign');
                     }
                 })
             }

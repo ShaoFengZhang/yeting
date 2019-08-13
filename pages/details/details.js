@@ -89,6 +89,7 @@ Page({
                     collection: res.collection,
                     apiHaveLoad:1,
                     focus:res.focus,
+                    ifvideo: res.models.type==2?true:false,
                 })
             }
         })
@@ -269,6 +270,7 @@ Page({
         loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
             contentid: contentid,
             uid: uid,
+            type: 1,
         }, function (res) {
             if (res.status == 1) {
                 wx.getImageInfo({
@@ -456,8 +458,11 @@ Page({
                 wx.saveImageToPhotosAlbum({
                     filePath: res.path,
                     success: function () {
-                        util.toast('保存成功')
+                        util.toast('发布成功，图片已保存')
                     },
+                    fail:function(){
+                        util.toast('发布成功！')
+                    }
                 })
             }
         })
