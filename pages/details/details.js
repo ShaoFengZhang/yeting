@@ -90,7 +90,8 @@ Page({
                     apiHaveLoad:1,
                     focus:res.focus,
                     ifvideo: res.models.type==2?true:false,
-                })
+                });
+                res.models.type == 2 ? _this.downloadNum(res.models.id):null;
             }
         })
     },

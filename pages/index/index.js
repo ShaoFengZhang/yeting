@@ -12,7 +12,7 @@ Page({
         ifshowrulesView: 0,
         ifshowShouCang: 1,
         nowCategoryIndex: 0,
-        apiHaveLoad: 0,
+        apiHaveLoad: 1,
         ifloadtxt: 0,
         classArr:[{
             id:"",
@@ -24,7 +24,7 @@ Page({
     onLoad: function(options) {
         let _this = this;
         this.page = 1;
-        this.rows = 10;
+        this.rows = 4;
         this.cangetData = true;
 
         this.getDaySign();
@@ -110,7 +110,7 @@ Page({
         // 切换分类
         if (wx.getStorageSync('classType')) {
             this.page = 1;
-            this.rows = 10;
+            this.rows = 4;
             this.cangetData = true;
             this.setData({
                 classType: wx.getStorageSync('classType'),
@@ -149,7 +149,7 @@ Page({
             return;
         };
         this.page = 1;
-        this.rows = 10;
+        this.rows = 4;
         this.cangetData=true;
         this.setData({
             nowCategoryIndex: index,

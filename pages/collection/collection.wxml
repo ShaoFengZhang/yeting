@@ -27,12 +27,14 @@
 
                     <view class='mainString'></view>
 
-                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='downloadPicture' wx:if="{{item.type==1}}">
-                        <image src='/assets/new/upload.png' />
-                        <view>下载{{item.download}}</view>
+                    <view class='statView' data-index="{{index}}" data-src="{{item.imgurl}}" catchtap='{{item.type==1?"downloadPicture":null}}'>
+                        <image wx:if="{{item.type==1}}" src='/assets/new/upload.png' />
+                        <image wx:if="{{item.type==2}}" src='/assets/new/play.png' />
+                        <view wx:if="{{item.type==1}}">下载{{item.download}}</view>
+                        <view wx:if="{{item.type==2}}">播放量{{item.download}}</view>
                     </view>
 
-                    <view class='mainString' wx:if="{{item.type==1}}"></view>
+                    <view class='mainString'></view>
 
                     <view class='statView'>
                         <image src='/assets/new/share.png' />

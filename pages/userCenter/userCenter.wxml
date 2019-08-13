@@ -37,8 +37,11 @@
             <view class='picTxt'>
                 {{item.title}}
             </view>
-            <view class='uploadNum'>
+            <view class='uploadNum' wx:if="{{item.type==1}}">
                 {{item.download}}次下载
+            </view>
+            <view class='uploadNum' wx:if="{{item.type==2}}">
+                {{item.download}}次播放
             </view>
         </view>
 
