@@ -7,7 +7,8 @@
 
     <!-- 顶部视频 -->
     <view class="topPicView" wx:if="{{ifvideo}}">
-        <video id='myVideo' src="{{contentArr.videourl}}" autoplay="1" controls object-fit="cover" ></video>
+        <video id='myVideo' poster="{{contentArr.imgurl}}" src="{{contentArr.videourl}}" autoplay="{{1}}" controls object-fit="contain" binderror="binderror" bindplay="bindplay" bindwaiting="bindwaiting" bindprogress="bindprogress" custom-cache="{{false}}" enable-play-gesture="{{1}}"
+            show-center-play-btn="{{0}}"></video>
     </view>
 
     <!-- 下载统计 -->
@@ -24,11 +25,18 @@
 
         <view class='mainString'></view>
 
-        <view class='statView' data-src="{{contentArr.imgurl}}" catchtap='{{contentArr.type==1?"downloadPicture":null}}'>
+        <!-- <view class='statView' data-src="{{contentArr.imgurl}}" catchtap='{{contentArr.type==1?"downloadPicture":null}}'>
             <image wx:if="{{contentArr.type==1}}" src='/assets/new/upload.png' />
             <image wx:if="{{contentArr.type==2}}" src='/assets/new/play.png' />
             <view wx:if="{{contentArr.type==1}}">下载{{contentArr.download}}</view>
             <view wx:if="{{contentArr.type==2}}">播放量{{contentArr.download}}</view>
+        </view> -->
+
+        <view class='statView'  data-src="{{contentArr.type==1?contentArr.imgurl:contentArr.shuiyinurl}}" catchtap='{{contentArr.type==1?"downloadPicture":"downloadVideo"}}'>
+            <image src='/assets/new/upload.png' />
+            <!-- <image wx:if="{{contentArr.type==2}}" src='/assets/new/play.png' /> -->
+            <view>下载{{contentArr.download}}</view>
+            <!-- <view wx:if="{{contentArr.type==2}}">下载{{contentArr.download}}</view> -->
         </view>
 
         <view class='mainString'></view>

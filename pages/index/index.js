@@ -75,22 +75,29 @@ Page({
             this.checkNewFans(this.shareUid, 1)
         };
 
+        //卡片分享
+        if (options && options.cid){
+            this.contentId = options.cid;
+            this.contypeid = options.contypeid
+            this.navdetail=true;
+        }
+
         loginApi.wxlogin(app).then(function(value) {
             console.log(options);
             clearTimeout(_this.timeOut);
-            _this.getContent();
+             _this.getContent();
         }, function(error) {
             console.log("error", error);
             clearTimeout(_this.timeOut);
             if (wx.getStorageSync("u_id")) {
-                _this.getContent();
+                 _this.getContent()
             }
         })
 
         this.timeOut = setTimeout(() => {
             if (wx.getStorageSync("u_id") && this.data.contentArr.length == 0) {
                 console.log("this.timeOut");
-                _this.getContent();
+                 _this.getContent();
             }
         }, 2200);
 
@@ -132,7 +139,7 @@ Page({
             this.shareNum(this.data.contentArr[index].id, index)
             return {
                 title: this.data.contentArr[index].title,
-                path: `/pages/index/index?uid=${wx.getStorageSync("u_id")}&type=2`,
+                path: `/pages/index/index?cid=${this.data.contentArr[index].id}&contypeid=${this.data.contentArr[index].typeid}`,
                 imageUrl: this.data.contentArr[index].imgurl
             }
         }
@@ -281,6 +288,13 @@ Page({
                     contentArr: _this.data.contentArr.concat(res.contents),
                     apiHaveLoad: 1,
                 });
+                if (_this.navdetail){
+                    _this.navdetail=false;
+                    wx.navigateTo({
+                        url: `/pages/details/details?contentid=${_this.contentId}&typeid=${_this.contypeid}`,
+                    })
+                }
+                   
             }
         })
     },
@@ -611,8 +625,10 @@ Page({
                     daySignImg: res.weekimg.pic,
                     daytime:res.date,
                     mothImg: res.monthimg.pic,
+                    signid:res.weekimg.id,
                     ifShowHomeView:1,
                 });
+                wx.hideTabBar();
             }
         })
     },
@@ -627,7 +643,8 @@ Page({
                 let src=res.path;
                 _this.setData({
                     ifShowHomeView:0,
-                })
+                });
+                wx.showTabBar();
                 wx.getSetting({
                     success(res) {
                         // 进行授权检测，未授权则进行弹层授权
@@ -655,9 +672,96 @@ Page({
         });
     },
 
+    saveDaySign: function () {
+        util.loding("加速保存中~")
+        let _this = this;
+        let contentid = this.data.signid;
+        let uid = wx.getStorageSync("u_id");
+        let downloadPictureUrl = loginApi.domin + '/home/index/riqiandownload';
+        loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
+            contentid: this.data.signid,
+            uid: uid,
+            type:1,
+        }, function (res) {
+            if (res.status == 1) {
+                wx.getImageInfo({
+                    src: _this.data.srcDomin + res.path,
+                    success(res) {
+                        _this.uploadImage(res.path,'sign');
+                        _this.setData({
+                            ifShowHomeView: 0,
+                        });
+                        wx.showTabBar();
+                    }
+                });
+            }
+        })
+    },
+
     hideHomeView:function(){
         this.setData({
             ifShowHomeView: 0,
+        });
+        wx.showTabBar();
+    },
+
+    // 下载视频授权检测
+    downloadVideo:function(e){
+        let {
+            src,index
+        } = e.currentTarget.dataset;
+        let _this=this;
+        wx.getSetting({
+            success(res) {
+                // 进行授权检测，未授权则进行弹层授权
+                if (!res.authSetting['scope.writePhotosAlbum']) {
+                    wx.authorize({
+                        scope: 'scope.writePhotosAlbum',
+                        success() {
+                            _this.saveVideo(src,index)
+                        },
+                        // 拒绝授权时
+                        fail() {
+                            util.toast("未授权")
+                        }
+                    })
+                } else {
+                    // 已授权则直接进行保存图片
+                    _this.saveVideo(src,index)
+                }
+            },
+            fail(res) {
+                
+            }
         })
-    }
+
+    },
+
+    // 保存视频
+    saveVideo:function(url,index){
+        let _this=this;
+        wx.downloadFile({
+            url: url,
+            success(res) {
+                if (res.statusCode === 200) {
+                    console.log(res);
+                    _this.downloadNum(_this.data.contentArr[index].id, index);
+                    wx.showLoading({
+                        title: '加速保存中',
+                    })
+                    wx.saveVideoToPhotosAlbum({
+                        filePath: res.tempFilePath,
+                        success(res) { 
+                            wx.hideLoading();
+                            wx.showModal({
+                                title: '提示',
+                                content: '视频已存入手机相册，赶快分享给好友吧',
+                                showCancel: false,
+                            })
+                        }
+                    })
+                }
+            }
+        })
+    },
 })

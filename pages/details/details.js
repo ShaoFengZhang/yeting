@@ -9,9 +9,9 @@ Page({
         hasUserInfo: false,
         canIUse: wx.canIUse('button.open-type.getUserInfo'),
         srcDomin: loginApi.srcDomin,
-        contentArr:[],
-        hotArr:[],
-        apiHaveLoad:0,
+        contentArr: [],
+        hotArr: [],
+        apiHaveLoad: 0,
     },
 
     onLoad: function(options) {
@@ -19,17 +19,17 @@ Page({
         this.rows = 20;
         this.cangetData = true;
 
-        if (options && options.contentid){
+        if (options && options.contentid) {
             this.typeid = options.typeid;
             this.contentid = options.contentid;
             this.getContent(options.contentid);
             this.getHotArr(options.typeid);
         };
 
-        if (options && options.saveUrl){
+        if (options && options.saveUrl) {
             this.checkPicLimits(options.saveUrl);
         }
-        
+
     },
 
     onShow: function() {
@@ -42,32 +42,30 @@ Page({
     },
 
     onShareAppMessage: function(e) {
-        if (e.from == "menu") {
-            return util.shareObj
-        } else {
-            this.shareNum(this.data.contentArr.id)
-            return {
-                title: this.data.contentArr.title,
-                path: `/pages/index/index?uid=${wx.getStorageSync("u_id")}&type=2`,
-                imageUrl: this.data.contentArr.imgurl
-            }
+
+        this.shareNum(this.data.contentArr.id)
+        return {
+            title: this.data.contentArr.title,
+            path: `/pages/index/index?cid=${this.data.contentArr.id}&contypeid=${this.data.contentArr.typeid}`,
+            imageUrl: this.data.contentArr.imgurl
         }
+
     },
 
     // 加载上一页
-    onPullDownRefresh: function () {
+    onPullDownRefresh: function() {
         console.log("onPullDownRefresh")
         let _this = this;
         this.page = 1;
         this.setData({
-            hotArr: [], 
+            hotArr: [],
         })
         this.getHotArr(this.typeid);
         wx.stopPullDownRefresh();
     },
 
     // 加载下一页
-    onReachBottom: function () {
+    onReachBottom: function() {
         if (this.cangetData) {
             this.page++;
             clearTimeout(this.bottomTime);
@@ -76,35 +74,47 @@ Page({
     },
 
     // 获取内容
-    getContent:function(contentid){
+    getContent: function(contentid) {
         let _this = this;
         let getContentUrl = loginApi.domin + '/home/index/newcontentone';
         loginApi.requestUrl(_this, getContentUrl, "POST", {
             id: contentid,
             uid: wx.getStorageSync('u_id'),
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 _this.setData({
                     contentArr: res.models,
                     collection: res.collection,
-                    apiHaveLoad:1,
-                    focus:res.focus,
-                    ifvideo: res.models.type==2?true:false,
+                    apiHaveLoad: 1,
+                    focus: res.focus,
+                    ifvideo: res.models.type == 2 ? true : false,
                 });
-                res.models.type == 2 ? _this.downloadNum(res.models.id):null;
+                res.models.type == 2 ? _this.videoplayernum(res.models.id) : null;
+            }
+        })
+    },
+
+    //统计播放量
+    videoplayernum:function(id){
+        let _this = this;
+        let videoplayernumUrl = loginApi.domin + '/home/index/downloadvideo';
+        loginApi.requestUrl(_this, videoplayernumUrl, "POST", {
+            contentid: id
+        }, function (res) {
+            if (res.status == 1) {   
             }
         })
     },
 
     // 获取推荐
-    getHotArr:function(typeid){
+    getHotArr: function(typeid) {
         let _this = this;
         let getHotArrUrl = loginApi.domin + '/home/index/album';
         loginApi.requestUrl(_this, getHotArrUrl, "POST", {
             typeid: typeid,
             page: this.page,
             len: this.rows,
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 if (res.content.length < _this.rows) {
                     _this.cangetData = false;
@@ -123,31 +133,31 @@ Page({
     },
 
     // 收藏
-    collectionFun: function () {
+    collectionFun: function() {
         let _this = this;
         let collectionFunUrl = loginApi.domin + '/home/index/newcollection';
         loginApi.requestUrl(_this, collectionFunUrl, "POST", {
             uid: wx.getStorageSync('u_id'),
             contentid: this.data.contentArr.id
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 _this.data.contentArr.collection++;
                 _this.setData({
                     contentArr: _this.data.contentArr,
-                    collection:1,
+                    collection: 1,
                 })
             }
         })
     },
 
     // 取消收藏
-    delcollectionFun: function () {
+    delcollectionFun: function() {
         let _this = this;
         let collectionFunUrl = loginApi.domin + '/home/index/newdelcollection';
         loginApi.requestUrl(_this, collectionFunUrl, "POST", {
             uid: wx.getStorageSync('u_id'),
             contentid: this.data.contentArr.id
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 _this.data.contentArr.collection--;
                 _this.setData({
@@ -159,7 +169,7 @@ Page({
     },
 
     // 关注
-    fansFocus: function () {
+    fansFocus: function() {
         let _this = this;
         let fansFocusUrl = loginApi.domin + '/home/index/addfocus';
         loginApi.requestUrl(_this, fansFocusUrl, "POST", {
@@ -167,7 +177,7 @@ Page({
             "buid": _this.data.contentArr.uid,
             "openid": wx.getStorageSync("user_openID"),
             "uid": wx.getStorageSync("u_id"),
-        }, function (res) {
+        }, function(res) {
             console.log(res);
             if (res.status == 1) {
                 util.toast("关注成功", 1200);
@@ -181,7 +191,7 @@ Page({
     },
 
     // 取消关注
-    fansCancelFocus: function () {
+    fansCancelFocus: function() {
         let _this = this;
         let fansFocusUrl = loginApi.domin + '/home/index/delfocus';
         loginApi.requestUrl(_this, fansFocusUrl, "POST", {
@@ -189,7 +199,7 @@ Page({
             "buid": _this.data.contentArr.uid,
             "openid": wx.getStorageSync("user_openID"),
             "uid": wx.getStorageSync("u_id"),
-        }, function (res) {
+        }, function(res) {
             console.log(res);
             if (res.status == 1) {
                 util.toast("取消关注", 1200)
@@ -203,17 +213,20 @@ Page({
     },
 
     //刷新
-    refresh:function(e){
-        let { typeid, id } = e.currentTarget.dataset;
-        if (id == this.contentid){
+    refresh: function(e) {
+        let {
+            typeid,
+            id
+        } = e.currentTarget.dataset;
+        if (id == this.contentid) {
             return;
         }
         this.setData({
-            apiHaveLoad:0,
+            apiHaveLoad: 0,
             hotArr: [],
-            contentArr: [], 
+            contentArr: [],
         });
-        this.typeid =typeid;
+        this.typeid = typeid;
         this.contentid = id;
         this.getContent(id);
         this.getHotArr(typeid);
@@ -224,33 +237,33 @@ Page({
     },
 
     // 分享次数
-    shareNum: function (contentid) {
+    shareNum: function(contentid) {
         let _this = this;
         let shareNumUrl = loginApi.domin + '/home/index/share';
         loginApi.requestUrl(_this, shareNumUrl, "POST", {
             contentid: contentid,
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 _this.data.contentArr.share++
-                _this.setData({
-                    contentArr: _this.data.contentArr,
-                });
+                    _this.setData({
+                        contentArr: _this.data.contentArr,
+                    });
             }
         })
     },
 
     // 下载次数
-    downloadNum: function (contentid) {
+    downloadNum: function(contentid) {
         let _this = this;
         let downloadNumUrl = loginApi.domin + '/home/index/download';
         loginApi.requestUrl(_this, downloadNumUrl, "POST", {
             contentid: contentid,
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 _this.data.contentArr.download++
-                _this.setData({
-                    contentArr: _this.data.contentArr,
-                });
+                    _this.setData({
+                        contentArr: _this.data.contentArr,
+                    });
             }
         })
     },
@@ -261,7 +274,7 @@ Page({
     },
 
     //点击下载图片
-    downloadPicture: function (e) {
+    downloadPicture: function(e) {
         util.loding("全速下载中~")
         let _this = this;
         let contentid = this.data.contentArr.id;
@@ -272,7 +285,7 @@ Page({
             contentid: contentid,
             uid: uid,
             type: 1,
-        }, function (res) {
+        }, function(res) {
             if (res.status == 1) {
                 wx.getImageInfo({
                     src: _this.data.srcDomin + res.path,
@@ -285,9 +298,8 @@ Page({
 
     },
 
-
     // 点击下载图片
-    uploadImage: function (src) {
+    uploadImage: function(src) {
         let _this = this;
         wx.hideLoading();
         wx.getSetting({
@@ -317,25 +329,25 @@ Page({
     },
 
     // 保存图片
-    saveImage: function (src) {
+    saveImage: function(src) {
         let _this = this;
         wx.hideLoading();
         wx.saveImageToPhotosAlbum({
             filePath: src,
-            success: function () {
+            success: function() {
                 _this.downloadNum(_this.data.contentArr.id)
                 wx.showModal({
                     title: '保存成功',
                     content: `记得分享哦~`,
                     showCancel: false,
-                    success: function (data) {
+                    success: function(data) {
                         wx.previewImage({
                             urls: [src]
                         })
                     }
                 });
             },
-            fail: function (data) {
+            fail: function(data) {
                 _this.downloadNum(_this.data.contentArr.id)
                 wx.previewImage({
                     urls: [src]
@@ -345,7 +357,7 @@ Page({
     },
 
     // 点击下载图片
-    drawcanvs: function (e) {
+    drawcanvs: function(e) {
         let {
             src,
             index
@@ -363,7 +375,7 @@ Page({
 
         wx.getImageInfo({
             src: canvasImg,
-            success: function (res) {
+            success: function(res) {
                 _this.setData({
                     bgimgH: res.height,
                     bgimgW: res.width,
@@ -371,14 +383,14 @@ Page({
                 ctx.drawImage(res.path, 0, 0, res.width, res.height);
                 wx.getImageInfo({
                     src: qrcodeimg,
-                    success: function (res1) {
+                    success: function(res1) {
                         ctx.fillText(canTxt, 192, 848);
                         ctx.setFillStyle("#282828");
                         ctx.fillText(app.globalData.userInfo.nickName, 192, 792);
                         ctx.drawImage(res1.path, 582, 786, 128, 128);
                         wx.getImageInfo({
                             src: app.globalData.userInfo.avatarUrl,
-                            success: function (res2) {
+                            success: function(res2) {
                                 // 绘制圆形头像
                                 ctx.save();
                                 ctx.beginPath();
@@ -395,7 +407,7 @@ Page({
                                         ctx.drawImage('../../assets/new/mask.png', 30, 776, 150, 150);
                                         ctx.drawImage(res3.path, 0, 0, 750, 750);
                                         ctx.draw();
-                                        setTimeout(function () {
+                                        setTimeout(function() {
                                             _this.showOffRecord(index)
                                         }, 1200)
                                     }
@@ -410,13 +422,13 @@ Page({
     },
 
     // 生成临时图片
-    showOffRecord: function (index) {
+    showOffRecord: function(index) {
         let _this = this;
         wx.canvasToTempFilePath({
             destWidth: this.data.bgimgW,
             destHeight: this.data.bgimgH,
             canvasId: 'canvas',
-            success: function (res) {
+            success: function(res) {
                 console.log(res.tempFilePath);
                 _this.uploadImage(res.tempFilePath, index);
             }
@@ -424,8 +436,8 @@ Page({
     },
 
     // 发布完成检测授权
-    checkPicLimits:function(src){
-        let _this=this;
+    checkPicLimits: function(src) {
+        let _this = this;
         wx.getSetting({
             success(res) {
                 // 进行授权检测，未授权则进行弹层授权
@@ -452,19 +464,95 @@ Page({
     },
 
     // 保存发布的图片
-    saveReleasePic:function(src){
+    saveReleasePic: function(src) {
         wx.getImageInfo({
-            src: loginApi.srcDomin + '/newadmin/Uploads/'+src,
+            src: loginApi.srcDomin + '/newadmin/Uploads/' + src,
             success(res) {
                 wx.saveImageToPhotosAlbum({
                     filePath: res.path,
-                    success: function () {
+                    success: function() {
                         util.toast('发布成功，图片已保存')
                     },
-                    fail:function(){
+                    fail: function() {
                         util.toast('发布成功！')
                     }
                 })
+            }
+        })
+    },
+
+    binderror: function(e) {
+        console.log('videocuowu', e);
+    },
+
+    bindplay: function(e) {
+        console.log('videoPlay', e)
+    },
+
+    bindwaiting: function(e) {
+        console.log('bindwaiting', e)
+    },
+
+    bindprogress: function(e) {
+        console.log('bindprogress', e)
+    },
+
+    // 下载视频授权检测
+    downloadVideo: function (e) {
+        let {
+            src
+        } = e.currentTarget.dataset;
+        let _this = this;
+        wx.getSetting({
+            success(res) {
+                // 进行授权检测，未授权则进行弹层授权
+                if (!res.authSetting['scope.writePhotosAlbum']) {
+                    wx.authorize({
+                        scope: 'scope.writePhotosAlbum',
+                        success() {
+                            _this.saveVideo(src)
+                        },
+                        // 拒绝授权时
+                        fail() {
+                            util.toast("未授权")
+                        }
+                    })
+                } else {
+                    // 已授权则直接进行保存图片
+                    _this.saveVideo(src)
+                }
+            },
+            fail(res) {
+
+            }
+        })
+
+    },
+
+    // 保存视频
+    saveVideo: function (url) {
+        let _this = this;
+        wx.downloadFile({
+            url: url,
+            success(res) {
+                if (res.statusCode === 200) {
+                    console.log(res);
+                    _this.downloadNum(_this.data.contentArr.id);
+                    wx.showLoading({
+                        title: '加速保存中',
+                    })
+                    wx.saveVideoToPhotosAlbum({
+                        filePath: res.tempFilePath,
+                        success(res) {
+                            wx.hideLoading();
+                            wx.showModal({
+                                title: '提示',
+                                content: '视频已存入手机相册，赶快分享给好友吧',
+                                showCancel: false,
+                            })
+                        }
+                    })
+                }
             }
         })
     },

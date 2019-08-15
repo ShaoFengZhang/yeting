@@ -1,9 +1,10 @@
 {
     "pages": [
         "pages/index/index",
+        "pages/contentFocus/contentFocus",
+        "pages/mine/mine",
         "pages/found/found",
         "pages/details/details",
-        "pages/mine/mine",
         "pages/editData/editData",
         "pages/message/message",
         "pages/attention/attention",
@@ -16,14 +17,14 @@
         "pages/beansSource/beansSource",
         "pages/releaseHome/releaseHome",
         "pages/changeClass/changeClass",
-        "pages/classDetails/classDetails",
-        "pages/contentFocus/contentFocus"
+        "pages/classDetails/classDetails"
     ],
+
 
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "麻辣短句",
+        "navigationBarTitleText": "赞闪看看",
         "navigationBarTextStyle": "black"
     },
 
@@ -59,7 +60,7 @@
     "navigateToMiniProgramAppIdList":["wx6a739cc11cae398a","wxa9889cbb49d3e5d3","wxffec6b164990d505"],
 
     "networkTimeout": {
-        "request": 10000
+        "request": 20000
     },
 
     "debug": false,

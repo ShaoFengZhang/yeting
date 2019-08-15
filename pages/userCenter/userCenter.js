@@ -63,7 +63,7 @@ Page({
     onReachBottom: function () {
         if (this.cangetData) {
             this.page++;
-            this.getContentArr(this.typeid);
+            this.getContentArr(this.uid);
         }
     },
 

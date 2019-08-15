@@ -6,7 +6,7 @@ Page({
 
     data: {
         ifshowInput:0,
-        inputValue:'来麻辣短句，分享你的诗意',
+        inputValue:'来赞闪看看，分享你的诗意',
         focusNum:0,
         focusUserArr:[],
         rewardView:0,
@@ -56,13 +56,13 @@ Page({
         if (!util.check(this.data.inputValue)) {
             util.toast("输入不能为空哦亲~", 1200);
             this.setData({
-                inputValue:'来麻辣短句，分享你的诗意',
+                inputValue:'来赞闪看看，分享你的诗意',
             });
         };
 
         let inputValue=null;
         if (this.data.inputValue==""){
-            inputValue ="来麻辣短句，分享你的诗意";
+            inputValue ="来赞闪看看，分享你的诗意";
         }else{
             inputValue = this.data.inputValue
         }

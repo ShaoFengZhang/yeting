@@ -13,7 +13,7 @@
         </view>
 
         <view class='inputTxtView' wx:if="{{ifshowInput}}">
-            <input focus="{{1}}" bindinput="bindinput" value='{{inputValue}}' maxlength="12" placeholder-class='placeholder' placeholder='来麻辣短句，分享你的诗意'></input>
+            <input focus="{{1}}" bindinput="bindinput" value='{{inputValue}}' maxlength="12" placeholder-class='placeholder' placeholder='来赞闪看看，分享你的诗意'></input>
             <text catchtap='saveTxt' style='color:#27BCAD;font-size:32rpx;font-weight:bold;'>确定</text>
         </view>
 

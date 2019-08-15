@@ -48,7 +48,7 @@ Page({
             this.shareNum(this.data.contentArr[index].id, index)
             return {
                 title: this.data.contentArr[index].title,
-                path: `/pages/index/index?uid=${wx.getStorageSync("u_id")}&type=2`,
+                path: `/pages/index/index?cid=${this.data.contentArr[index].id}&contypeid=${this.data.contentArr[index].typeid}`,
                 imageUrl: this.data.contentArr[index].imgurl
             }
         }
@@ -408,6 +408,66 @@ Page({
             success: function (res) {
                 console.log(res.tempFilePath);
                 _this.uploadImage(res.tempFilePath, index);
+            }
+        })
+    },
+
+    // 下载视频授权检测
+    downloadVideo: function (e) {
+        let {
+            src, index
+        } = e.currentTarget.dataset;
+        let _this = this;
+        wx.getSetting({
+            success(res) {
+                // 进行授权检测，未授权则进行弹层授权
+                if (!res.authSetting['scope.writePhotosAlbum']) {
+                    wx.authorize({
+                        scope: 'scope.writePhotosAlbum',
+                        success() {
+                            _this.saveVideo(src, index)
+                        },
+                        // 拒绝授权时
+                        fail() {
+                            util.toast("未授权")
+                        }
+                    })
+                } else {
+                    // 已授权则直接进行保存图片
+                    _this.saveVideo(src, index)
+                }
+            },
+            fail(res) {
+
+            }
+        })
+
+    },
+
+    // 保存视频
+    saveVideo: function (url, index) {
+        let _this = this;
+        wx.downloadFile({
+            url: url,
+            success(res) {
+                if (res.statusCode === 200) {
+                    console.log(res);
+                    _this.downloadNum(_this.data.contentArr[index].id, index);
+                    wx.showLoading({
+                        title: '加速保存中',
+                    })
+                    wx.saveVideoToPhotosAlbum({
+                        filePath: res.tempFilePath,
+                        success(res) {
+                            wx.hideLoading();
+                            wx.showModal({
+                                title: '提示',
+                                content: '视频已存入手机相册，赶快分享给好友吧',
+                                showCancel: false,
+                            })
+                        }
+                    })
+                }
             }
         })
     },
