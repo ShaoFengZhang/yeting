@@ -99,6 +99,11 @@
         <view>暂时还没有数据亲~</view>
     </view>
 
+    <!-- 制图按钮 -->
+    <view class='zhitu' catchtap='goToZhiTu' wx:if="{{ifshowzhitu}}">
+        <image src='/assets/new/drawing.png' />
+    </view>
+
 </view>
 
 <canvas canvas-id="canvas" style="width:{{bgimgW}}px;height:{{bgimgH}}px;display:block;position:absolute; bottom:1500px" />

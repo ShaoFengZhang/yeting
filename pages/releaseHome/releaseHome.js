@@ -22,7 +22,8 @@ Page({
         let _this = this;
 
         this.setData({
-            scrollHeight: (app.windowHeight + app.Bheight) * 750 / app.sysWidth - 892,
+            // scrollHeight: (app.windowHeight + app.Bheight) * 750 / app.sysWidth - 892,
+            scrollHeight: (app.windowHeight) * 750 / app.sysWidth - 804,
         });
 
         this.getClass();
@@ -123,7 +124,25 @@ Page({
             "typeid": this.data.releaseId,
         }, function (res) {
             if (res.status == 1) {
-                _this.goToDetails(res.contentid,res.typeid,res.imgurl);
+                _this.fabuzhitu(res.contentid, res.typeid)
+                // _this.goToDetails(res.contentid,res.typeid,res.imgurl);
+                wx.hideLoading();
+            }
+        })
+    },
+
+    // 发布制图
+    fabuzhitu: function (contentid, typeid) {
+        util.loding('全速发布中~');
+        let _this = this;
+        let fabuzhituUrl = loginApi.domin + '/home/index/fabu';
+        loginApi.requestUrl(_this, fabuzhituUrl, "POST", {
+            "uid": wx.getStorageSync("u_id"),
+            "contentid": contentid,
+            "type": 1,
+        }, function (res) {
+            if (res.status == 1) {
+                _this.goToDetails(contentid, typeid, res.path);
                 wx.hideLoading();
             }
         })

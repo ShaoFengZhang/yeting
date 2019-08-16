@@ -18,6 +18,8 @@ Page({
         this.page = 1;
         this.rows = 20;
         this.cangetData = true;
+        this.shenghe();
+
 
         if (options && options.contentid) {
             this.typeid = options.typeid;
@@ -466,7 +468,7 @@ Page({
     // 保存发布的图片
     saveReleasePic: function(src) {
         wx.getImageInfo({
-            src: loginApi.srcDomin + '/newadmin/Uploads/' + src,
+            src: loginApi.srcDomin + src,
             success(res) {
                 wx.saveImageToPhotosAlbum({
                     filePath: res.path,
@@ -553,6 +555,28 @@ Page({
                         }
                     })
                 }
+            }
+        })
+    },
+
+    // 跳转制图
+    goToZhiTu: function () {
+        wx.switchTab({
+            url: '/pages/releaseHome/releaseHome',
+        })
+    },
+
+    shenghe: function () {
+        let _this = this;
+        let shengheUrl = loginApi.domin + '/home/index/shenhe';
+        loginApi.requestUrl(_this, shengheUrl, "POST", {}, function (res) {
+            if (res.status == 1) {
+                if (res.type) {
+                    _this.setData({
+                        ifshowzhitu: 1,
+                    });
+                }
+
             }
         })
     },

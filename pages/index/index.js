@@ -14,14 +14,16 @@ Page({
         nowCategoryIndex: 0,
         apiHaveLoad: 1,
         ifloadtxt: 0,
-        classArr:[{
-            id:"",
-            title:'推荐',
+        classArr: [{
+            id: "",
+            title: '推荐',
         }],
-        ifShowHomeView:0,
+        ifShowHomeView: 0,
+        ifshowzhitu: 0,
     },
 
     onLoad: function(options) {
+        this.shenghe();
         let _this = this;
         this.page = 1;
         this.rows = 4;
@@ -76,28 +78,28 @@ Page({
         };
 
         //卡片分享
-        if (options && options.cid){
+        if (options && options.cid) {
             this.contentId = options.cid;
             this.contypeid = options.contypeid
-            this.navdetail=true;
+            this.navdetail = true;
         }
 
         loginApi.wxlogin(app).then(function(value) {
             console.log(options);
             clearTimeout(_this.timeOut);
-             _this.getContent();
+            _this.getContent();
         }, function(error) {
             console.log("error", error);
             clearTimeout(_this.timeOut);
             if (wx.getStorageSync("u_id")) {
-                 _this.getContent()
+                _this.getContent()
             }
         })
 
         this.timeOut = setTimeout(() => {
             if (wx.getStorageSync("u_id") && this.data.contentArr.length == 0) {
                 console.log("this.timeOut");
-                 _this.getContent();
+                _this.getContent();
             }
         }, 2200);
 
@@ -122,7 +124,7 @@ Page({
             this.setData({
                 classType: wx.getStorageSync('classType'),
                 nowCategoryIndex: null,
-                contentArr:[],
+                contentArr: [],
             });
             wx.removeStorageSync('classType');
             this.getContent(this.data.classType);
@@ -157,7 +159,7 @@ Page({
         };
         this.page = 1;
         this.rows = 4;
-        this.cangetData=true;
+        this.cangetData = true;
         this.setData({
             nowCategoryIndex: index,
             classType: id,
@@ -171,7 +173,7 @@ Page({
     onPullDownRefresh: function() {
         console.log("onPullDownRefresh")
         let _this = this;
-        this.page =1;
+        this.page = 1;
         this.setData({
             contentArr: [],
         })
@@ -288,13 +290,13 @@ Page({
                     contentArr: _this.data.contentArr.concat(res.contents),
                     apiHaveLoad: 1,
                 });
-                if (_this.navdetail){
-                    _this.navdetail=false;
+                if (_this.navdetail) {
+                    _this.navdetail = false;
                     wx.navigateTo({
                         url: `/pages/details/details?contentid=${_this.contentId}&typeid=${_this.contypeid}`,
                     })
                 }
-                   
+
             }
         })
     },
@@ -397,7 +399,7 @@ Page({
     },
 
     // 跳转详情页
-    goToDetails: function (e) {
+    goToDetails: function(e) {
         let {
             id,
             typeid
@@ -408,7 +410,7 @@ Page({
     },
 
     // 跳转发现页
-    goToFounPage: function () {
+    goToFounPage: function() {
         wx.switchTab({
             url: '/pages/found/found'
         })
@@ -432,7 +434,7 @@ Page({
 
     // 跳转制图
     goToZhiTu: function() {
-        wx.navigateTo({
+        wx.switchTab({
             url: '/pages/releaseHome/releaseHome',
         })
     },
@@ -446,26 +448,26 @@ Page({
     },
 
     //点击下载图片
-    downloadPicture:function(e){
+    downloadPicture: function(e) {
         util.loding("全速下载中~")
-        let _this=this;
+        let _this = this;
         let {
             index
         } = e.currentTarget.dataset;
         let contentid = this.data.contentArr[index].id;
-        let uid=wx.getStorageSync("u_id");
+        let uid = wx.getStorageSync("u_id");
 
         let downloadPictureUrl = loginApi.domin + '/home/index/downloads';
         loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
             contentid: contentid,
-            uid:uid,
-            type:1,
-        }, function (res) {
+            uid: uid,
+            type: 1,
+        }, function(res) {
             if (res.status == 1) {
                 wx.getImageInfo({
                     src: _this.data.srcDomin + res.path,
                     success(res) {
-                        _this.uploadImage( res.path, index) 
+                        _this.uploadImage(res.path, index)
                     }
                 });
             }
@@ -474,7 +476,7 @@ Page({
     },
 
     // 点击下载图片
-    uploadImage: function(src,index) {
+    uploadImage: function(src, index) {
         let _this = this;
         wx.hideLoading();
         wx.getSetting({
@@ -509,21 +511,21 @@ Page({
         wx.hideLoading();
         wx.saveImageToPhotosAlbum({
             filePath: src,
-            success: function () {
-                index!='sign'?_this.downloadNum(_this.data.contentArr[index].id, index):null
+            success: function() {
+                index != 'sign' ? _this.downloadNum(_this.data.contentArr[index].id, index) : null
                 wx.showModal({
                     title: '保存成功',
                     content: `记得分享哦~`,
                     showCancel: false,
-                    success: function (data) {
+                    success: function(data) {
                         wx.previewImage({
                             urls: [src]
                         })
                     }
                 });
             },
-            fail: function (data) {
-                index !='sign'?_this.downloadNum(_this.data.contentArr[index].id, index):null
+            fail: function(data) {
+                index != 'sign' ? _this.downloadNum(_this.data.contentArr[index].id, index) : null
                 wx.previewImage({
                     urls: [src]
                 })
@@ -581,13 +583,13 @@ Page({
                                     success(res3) {
                                         ctx.drawImage('../../assets/new/mask.png', 30, 776, 150, 150);
                                         ctx.drawImage(res3.path, 0, 0, 750, 750);
-                                        ctx.draw(); 
-                                        setTimeout(function () {
+                                        ctx.draw();
+                                        setTimeout(function() {
                                             _this.showOffRecord(index)
                                         }, 1200)
                                     }
                                 })
-                                
+
                             }
                         })
                     }
@@ -605,28 +607,28 @@ Page({
             canvasId: 'canvas',
             success: function(res) {
                 console.log(res.tempFilePath);
-                _this.uploadImage(res.tempFilePath,index);
+                _this.uploadImage(res.tempFilePath, index);
             }
         })
     },
 
     // 请求日签
-    getDaySign:function(){
+    getDaySign: function() {
         let _this = this;
         let getDaySignUrl = loginApi.domin + '/home/index/daily';
-        loginApi.requestUrl(_this, getDaySignUrl, "POST", {}, function (res) {
+        loginApi.requestUrl(_this, getDaySignUrl, "POST", {}, function(res) {
             if (res.status == 1) {
-                if (wx.getStorageSync("sign") == res.weekimg.id){
+                if (wx.getStorageSync("sign") == res.weekimg.id) {
                     return;
-                }else{
+                } else {
                     wx.setStorageSync("sign", res.weekimg.id)
                 }
                 _this.setData({
                     daySignImg: res.weekimg.pic,
-                    daytime:res.date,
+                    daytime: res.date,
                     mothImg: res.monthimg.pic,
-                    signid:res.weekimg.id,
-                    ifShowHomeView:1,
+                    signid: res.weekimg.id,
+                    ifShowHomeView: 1,
                 });
                 wx.hideTabBar();
             }
@@ -634,15 +636,15 @@ Page({
     },
 
     // 保存日签
-    saveDaySign:function(){
-        let _this=this;
+    saveDaySign: function() {
+        let _this = this;
         util.loding("全速保存中~")
         wx.getImageInfo({
             src: this.data.daySignImg,
             success(res) {
-                let src=res.path;
+                let src = res.path;
                 _this.setData({
-                    ifShowHomeView:0,
+                    ifShowHomeView: 0,
                 });
                 wx.showTabBar();
                 wx.getSetting({
@@ -652,27 +654,27 @@ Page({
                             wx.authorize({
                                 scope: 'scope.writePhotosAlbum',
                                 success() {
-                                    _this.saveImage(src,'sign');
+                                    _this.saveImage(src, 'sign');
                                 },
                                 // 拒绝授权时
                                 fail() {
-                                    _this.saveImage(src,'sign');
+                                    _this.saveImage(src, 'sign');
                                 }
                             })
                         } else {
                             // 已授权则直接进行保存图片
-                            _this.saveImage(src,'sign');
+                            _this.saveImage(src, 'sign');
                         }
                     },
                     fail(res) {
-                        _this.saveImage(src,'sign');
+                        _this.saveImage(src, 'sign');
                     }
                 })
             }
         });
     },
 
-    saveDaySign: function () {
+    saveDaySign: function() {
         util.loding("加速保存中~")
         let _this = this;
         let contentid = this.data.signid;
@@ -681,13 +683,13 @@ Page({
         loginApi.requestUrl(_this, downloadPictureUrl, "POST", {
             contentid: this.data.signid,
             uid: uid,
-            type:1,
-        }, function (res) {
+            type: 1,
+        }, function(res) {
             if (res.status == 1) {
                 wx.getImageInfo({
                     src: _this.data.srcDomin + res.path,
                     success(res) {
-                        _this.uploadImage(res.path,'sign');
+                        _this.uploadImage(res.path, 'sign');
                         _this.setData({
                             ifShowHomeView: 0,
                         });
@@ -698,7 +700,7 @@ Page({
         })
     },
 
-    hideHomeView:function(){
+    hideHomeView: function() {
         this.setData({
             ifShowHomeView: 0,
         });
@@ -706,11 +708,12 @@ Page({
     },
 
     // 下载视频授权检测
-    downloadVideo:function(e){
+    downloadVideo: function(e) {
         let {
-            src,index
+            src,
+            index
         } = e.currentTarget.dataset;
-        let _this=this;
+        let _this = this;
         wx.getSetting({
             success(res) {
                 // 进行授权检测，未授权则进行弹层授权
@@ -718,7 +721,7 @@ Page({
                     wx.authorize({
                         scope: 'scope.writePhotosAlbum',
                         success() {
-                            _this.saveVideo(src,index)
+                            _this.saveVideo(src, index)
                         },
                         // 拒绝授权时
                         fail() {
@@ -727,19 +730,19 @@ Page({
                     })
                 } else {
                     // 已授权则直接进行保存图片
-                    _this.saveVideo(src,index)
+                    _this.saveVideo(src, index)
                 }
             },
             fail(res) {
-                
+
             }
         })
 
     },
 
     // 保存视频
-    saveVideo:function(url,index){
-        let _this=this;
+    saveVideo: function(url, index) {
+        let _this = this;
         wx.downloadFile({
             url: url,
             success(res) {
@@ -751,7 +754,7 @@ Page({
                     })
                     wx.saveVideoToPhotosAlbum({
                         filePath: res.tempFilePath,
-                        success(res) { 
+                        success(res) {
                             wx.hideLoading();
                             wx.showModal({
                                 title: '提示',
@@ -761,6 +764,21 @@ Page({
                         }
                     })
                 }
+            }
+        })
+    },
+
+    shenghe: function() {
+        let _this = this;
+        let shengheUrl = loginApi.domin + '/home/index/shenhe';
+        loginApi.requestUrl(_this, shengheUrl, "POST", {}, function(res) {
+            if (res.status == 1) {
+                if (res.type) {
+                    _this.setData({
+                        ifshowzhitu: 1,
+                    });
+                }
+
             }
         })
     },

@@ -127,6 +127,17 @@
         <image style='width:80rpx;height:80rpx;' src='/assets/mine/rightFlow.png' />
     </view>
 
+    <view class='editorView wrapflex' hover-class="hover-class" data-path="/pages/releaseHome/releaseHome" catchtap='pageNav'>
+        <form bindsubmit="formSubmit" report-submit="{{true}}">
+            <button formType="submit" class='Sbtn'>
+                <view class='sbtnview'></view>
+            </button>
+        </form>
+        <image style='width:42rpx;height:42rpx;' src='/assets/app/release-noselect.png' />
+        <view style='width:500rpx;color:#282828;font-size:32rpx;'>关注内容</view>
+        <image style='width:80rpx;height:80rpx;' src='/assets/mine/rightFlow.png' />
+    </view>
+
     <view class='editorView wrapflex' hover-class="hover-class">
         <image style='width:36rpx;height:34rpx;' src='/assets/mine/Customer.png' />
         <view style='width:500rpx;color:#282828;font-size:32rpx;'>联系客服</view>

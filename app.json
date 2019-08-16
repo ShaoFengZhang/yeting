@@ -41,9 +41,9 @@
                 "selectedIconPath": "/assets/app/home-select.png"
             },
             {
-                "pagePath": "pages/contentFocus/contentFocus",
+                "pagePath": "pages/releaseHome/releaseHome",
                 "iconPath": "/assets/app/release-noselect.png",
-                "text": "关注",
+                "text": "制作",
                 "selectedIconPath": "/assets/app/release-select.png"
             },
             

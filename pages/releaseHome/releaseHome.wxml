@@ -8,12 +8,12 @@
         <view class="clickTxt">点击文字可编辑</view>
     </view>
 
-    <view class='promptWords'>
+    <!-- <view class='promptWords'>
         <text style='color:#ffffff;font-size:36rpx;' wx:if="{{nowisTxt==1}}">语录推荐</text>
         <text style='color:#ffffff;font-size:40rpx;' wx:if="{{nowisTxt==2}}">背景图</text>
         <text style='color:#BEEBE6;font-size:32rpx;margin-left:16rpx;' wx:if="{{nowisTxt==1}}">*点击可选择短句</text>
         <text style='color:#BEEBE6;font-size:32rpx;margin-left:16rpx;' wx:if="{{nowisTxt==2}}">*点击或上传图片可更换背景图</text>
-    </view>
+    </view> -->
 
     <view class="classType">
         <swiper class="classTypeSwiper" display-multiple-items="{{classArr.length>5?5:classArr.length}}">

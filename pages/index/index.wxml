@@ -146,7 +146,7 @@
     </view>
 
     <!-- 制图按钮 -->
-    <view class='zhitu' catchtap='goToZhiTu'>
+    <view class='zhitu' catchtap='goToZhiTu' wx:if="{{ifshowzhitu}}">
         <image src='/assets/new/drawing.png' />
     </view>
 
