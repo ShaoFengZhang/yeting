@@ -3,9 +3,9 @@
     <view class='topPic'>
         <image class='contentImage' src='{{srcDomin}}{{nowPic}}' />
 
-        <textarea value="{{nowTxt}}" bindblur="bindblur" class='txtView' auto-height placeholder="" maxlength="{{50}}" />
+        <textarea value="{{nowTxt}}"  class='txtView {{loadFont?"wxFont":null}}'  maxlength="{{50}}" bindinput="bindinput"  />
 
-        <view class="clickTxt">点击文字可编辑</view>
+        <view class='clickTxt'>点击文字可编辑</view>
     </view>
 
     <!-- <view class='promptWords'>
@@ -16,10 +16,18 @@
     </view> -->
 
     <view class="classType">
-        <swiper class="classTypeSwiper" display-multiple-items="{{classArr.length>5?5:classArr.length}}">
+        <swiper wx:if="{{nowisTxt==1 || nowisTxt==2}}" class="classTypeSwiper" display-multiple-items="{{classArr.length>5?5:classArr.length}}" next-margin="26px">
             <block wx:for="{{classArr}}" wx:key="{{index}}">
                 <swiper-item class="{{index==currentIndex?'selectClass':null}}" data-index="{{index}}" catchtap="switchClass">
                     <text>{{item.title}}</text>
+                </swiper-item>
+            </block>
+        </swiper>
+
+        <swiper wx:if="{{nowisTxt==3}}" class="classTypeSwiper" display-multiple-items="{{1}}">
+            <block>
+                <swiper-item class="selectClass">
+                    <text>字体</text>
                 </swiper-item>
             </block>
         </swiper>
@@ -29,6 +37,7 @@
 
         <scroll-view class='txtPicView' scroll-y style="height: {{scrollHeight}}rpx;">
 
+            <!-- 换短句 -->
             <view class="txtList" wx:if="{{nowisTxt==1}}" wx:for="{{txtArr}}" wx:key="{{index}}" catchtap="selectTxt" data-index="{{index}}">
                 <view class='selectView' wx:if="{{txtindex==index}}">
                     <view class='point'></view>
@@ -40,6 +49,7 @@
                 </view>
             </view>
 
+            <!-- 换图片 -->
             <view class='picList' wx:if="{{nowisTxt==2}}">
 
                 <view class='uploadImgView' catchtap="changePic">
@@ -52,6 +62,16 @@
                 </view>
             </view>
 
+            <!-- 换样式 -->
+            <!-- <view class='picList' wx:if="{{nowisTxt==3}}">
+
+                <view class='fontItem {{fontIndex==index?"selectPicItem":null}}' wx:for="{{fontArr}}" wx:key="{{index}}" data-index="{{index}}" catchtap="selectFont" data-typeid="{{typeid}}">
+                {{item.title}}
+                </view>
+            </view> -->
+
+
+
         </scroll-view>
 
     </view>
@@ -60,17 +80,25 @@
     <view class='contentStat'>
         <view class='statView' data-index="1" catchtap="txtPicSwitch">
             <image src='/assets/new/scTxt.png' wx:if="{{nowisTxt==1}}" />
-            <image src='/assets/new/wcTxt.png' wx:if="{{nowisTxt==2}}" />
+            <image src='/assets/new/wcTxt.png' wx:if="{{nowisTxt==2 ||nowisTxt==3}}" />
             <view style="color:{{nowisTxt==1?'#27BCAD':'#8E8E93'}}">换短句</view>
         </view>
 
         <view class='mainString'></view>
 
         <view class='statView' data-index="2" catchtap="txtPicSwitch">
-            <image src='/assets/new/wcPic.png' wx:if="{{nowisTxt==1}}" />
+            <image src='/assets/new/wcPic.png' wx:if="{{nowisTxt==1 || nowisTxt==3}}" />
             <image src='/assets/new/scPic.png' wx:if="{{nowisTxt==2}}" />
             <view style="color:{{nowisTxt==2?'#27BCAD':'#8E8E93'}}">换图片</view>
         </view>
+
+        <!-- <view class='mainString'></view>
+
+        <view class='statView' data-index="3" catchtap="txtPicSwitch">
+            <image src='/assets/new/font.png' wx:if="{{nowisTxt==1 || nowisTxt==2}}" />
+            <image src='/assets/new/sFont.png' wx:if="{{nowisTxt==3}}" />
+            <view style="color:{{nowisTxt==3?'#27BCAD':'#8E8E93'}}">换字体</view>
+        </view> -->
 
         <view class='statView' catchtap="releaseFun">
             <image style='width:252rpx;height:120rpx;margin-bottom:0rpx;' src='/assets/new/relese.png' />

@@ -10,32 +10,32 @@
 }
 
 .txtView {
-    width: 716rpx;
-    min-height: 206rpx;
+    width: 670rpx;
+    height: 270rpx;
     border: 4rpx dashed rgba(255, 73, 58, 1);
     position: absolute;
-    top: 256rpx;
-    left: 20rpx;
+    top: 166rpx;
+    left: 40rpx;
     box-sizing: border-box;
     padding: 10rpx 40rpx;
     color: #fff;
     font-size: 40rpx;
-    font-weight: bold;
+    /* font-weight: bold; */
     word-wrap: break-word;
+    background-image: url("https://duanju.58100.com/upload/mengban1.png");
 }
 
 .clickTxt {
     width: 264rpx;
     height: 64rpx;
-    background: #FF493A;
+    background: #ff493a;
     text-align: center;
     color: #fff;
     font-size: 32rpx;
     line-height: 64rpx;
     position: absolute;
-    top: 188rpx;
-    left: 472rpx;
-
+    top: 98rpx;
+    right: 38rpx;
 }
 
 .promptWords {
@@ -46,28 +46,29 @@
     line-height: 88rpx;
     box-sizing: border-box;
     padding: 0 40rpx;
-    background-color: #27BCAD;
+    background-color: #27bcad;
 }
 
 /* 分类 */
-.classType{
+
+.classType {
     width: 100%;
     height: 88rpx;
     box-sizing: border-box;
     padding: 0 32rpx;
     line-height: 88rpx;
     text-align: center;
-    border-bottom: 2rpx solid #E7E7E7;
+    border-bottom: 2rpx solid #e7e7e7;
     color: #666;
 }
 
-.selectClass{
+.selectClass {
     color: #282828;
     font-size: 40rpx;
     font-weight: bold;
 }
 
-.classTypeSwiper{
+.classTypeSwiper {
     width: 100%;
     height: 88rpx;
 }
@@ -109,8 +110,8 @@
     top: -6rpx;
 }
 
-.havselectScrollTxt{
-    color: #27BCAD;
+.havselectScrollTxt {
+    color: #27bcad;
 }
 
 .point {
@@ -146,7 +147,7 @@
     margin-top: 18rpx;
 }
 
-.picItem {
+.picItem,.fontItem{
     margin-right: 28rpx;
     margin-bottom: 24rpx;
 }
@@ -164,6 +165,22 @@
 
 .selectPicItem {
     border: 4rpx solid #ff493a;
+}
+
+/* 字体列表 */
+
+.fontItem {
+    width: 150rpx;
+    height: 148rpx;
+    background: rgba(244, 244, 246, 1);
+    border-radius: 8rpx;
+    text-align: center;
+    line-height: 148rpx;
+    box-sizing: border-box;
+}
+
+.fontItem:nth-child(4n+0) {
+    margin-right: 0rpx;
 }
 
 /* 数据分类下载分享的统计框 */

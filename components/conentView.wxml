@@ -75,7 +75,7 @@
                 <button catchtap='catchtap' data-index='{{index}}' class='shareBtn' open-type='share'></button>
             </view>
 
-            <view data-icon="{{item.imgurl[0]?'https://duanju.58100.com/'+item.imgurl[0]:'/assets/poster/mala.png'}}" data-txt="{{item.title?item.title:'欢迎来到赞闪看看'}}" catchtap='goToQrCode' data-id='{{item.id}}'>
+            <view data-icon="{{item.imgurl[0]?'https://duanju.58100.com/'+item.imgurl[0]:'/assets/poster/mala.png'}}" data-txt="{{item.title?item.title:'欢迎来到麻辣短句'}}" catchtap='goToQrCode' data-id='{{item.id}}'>
                 <view class='newBotBtn' style='background-color:#27BCAD'>
                     制作美图
                 </view>
@@ -107,7 +107,7 @@
             </view> -->
 
             <!-- 魔法棒 -->
-            <!-- <view class='shareImg' data-icon="{{item.imgurl[0]?'https://duanju.58100.com/'+item.imgurl[0]:'/assets/poster/mala.png'}}" data-txt="{{item.title?item.title:'欢迎来到赞闪看看'}}" catchtap='goToQrCode' data-id='{{item.id}}'>
+            <!-- <view class='shareImg' data-icon="{{item.imgurl[0]?'https://duanju.58100.com/'+item.imgurl[0]:'/assets/poster/mala.png'}}" data-txt="{{item.title?item.title:'欢迎来到麻辣短句'}}" catchtap='goToQrCode' data-id='{{item.id}}'>
                 <image src='/assets/index/shareImg.png' />
             </view> -->
 

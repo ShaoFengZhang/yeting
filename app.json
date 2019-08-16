@@ -24,7 +24,7 @@
     "window": {
         "backgroundTextStyle": "light",
         "navigationBarBackgroundColor": "#fff",
-        "navigationBarTitleText": "赞闪看看",
+        "navigationBarTitleText": "麻辣短句",
         "navigationBarTextStyle": "black"
     },
 
@@ -40,13 +40,6 @@
                 "text": "首页",
                 "selectedIconPath": "/assets/app/home-select.png"
             },
-            {
-                "pagePath": "pages/releaseHome/releaseHome",
-                "iconPath": "/assets/app/release-noselect.png",
-                "text": "制作",
-                "selectedIconPath": "/assets/app/release-select.png"
-            },
-            
             {
                 "pagePath": "pages/mine/mine",
                 "iconPath": "/assets/app/my-noselect.png",

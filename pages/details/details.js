@@ -451,6 +451,7 @@ Page({
                         },
                         // 拒绝授权时
                         fail() {
+                            util.toast('发布成功！')
                             console.log('未授权')
                         }
                     })
@@ -460,6 +461,7 @@ Page({
                 }
             },
             fail(res) {
+                util.toast('发布成功！')
                 console.log('未授权')
             }
         })
@@ -561,14 +563,14 @@ Page({
 
     // 跳转制图
     goToZhiTu: function () {
-        wx.switchTab({
+        wx.navigateTo({
             url: '/pages/releaseHome/releaseHome',
         })
     },
 
     shenghe: function () {
         let _this = this;
-        let shengheUrl = loginApi.domin + '/home/index/shenhe';
+        let shengheUrl = loginApi.domin + '/home/index/shenhe1';
         loginApi.requestUrl(_this, shengheUrl, "POST", {}, function (res) {
             if (res.status == 1) {
                 if (res.type) {
@@ -578,6 +580,14 @@ Page({
                 }
 
             }
+        })
+    },
+
+    // 跳转个人主页
+    goToUserHome: function (e) {
+        let uid = e.currentTarget.dataset.uid
+        wx.navigateTo({
+            url: `/pages/userCenter/userCenter?uid=${uid}`,
         })
     },
 

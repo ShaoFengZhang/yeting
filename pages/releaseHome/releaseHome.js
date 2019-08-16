@@ -22,10 +22,11 @@ Page({
         let _this = this;
 
         this.setData({
-            // scrollHeight: (app.windowHeight + app.Bheight) * 750 / app.sysWidth - 892,
-            scrollHeight: (app.windowHeight) * 750 / app.sysWidth - 804,
+            scrollHeight: (app.windowHeight + app.Bheight) * 750 / app.sysWidth - 804,
+            // scrollHeight: (app.windowHeight) * 750 / app.sysWidth - 804,
+            fontid:"moren",
         });
-
+        _this.getFont();
         this.getClass();
     },
 
@@ -40,32 +41,90 @@ Page({
         return util.shareObj
     },
 
-    //输入框失去焦点：
-    bindblur:function(e){
+    // 输入框输入时触发
+    bindinput:function(e){
         console.log(e);
         let value = e.detail.value;
         console.log(util.check(value));
         this.setData({
             nowTxt: value,
             releaseId: this.data.picTypeid,
-            haveEdittxt:1,
+            haveEdittxt: 1,
         })
         if (!util.check(value)) {
             util.toast("请输入有效内容~", 1200);
             return;
         };
-        
     },
 
     //文字和图片切换
     txtPicSwitch:function(e){
+        
         let index=e.currentTarget.dataset.index;
         if (index == this.data.nowisTxt){return};
         this.setData({
             nowisTxt:index,
         });
+        if (index==3){
+            return;
+        }
         index == 1 ? this.getTxt(this.data.classArr[this.data.currentIndex].id) : this.getPicContent(this.data.classArr[this.data.currentIndex].id)
         
+    },
+
+    // 切换字体
+    selectFont:function(e){
+        let index = e.currentTarget.dataset.index;
+        if (index == this.data.fontIndex){return};
+        util.loding("切换中")
+        let _this = this;
+        this.setData({
+            loadFont: 0,
+            fontIndex:index,
+        })
+        wx.loadFontFace({
+            family: 'mala Bold',
+            source: `url("${this.data.fontArr[index].url}")`,
+            success: function (res) {
+                console.log(99999999999)
+                _this.setData({
+                    loadFont: 1,
+                    fontid: _this.data.fontArr[index].id,
+                });
+                wx.hideLoading();
+            },
+            complete:function(res){
+                console.log(res);
+            },
+            fail:function(res){
+                console.log(res);
+                wx.hideLoading();
+                wx.showModal({
+                    title: '提示',
+                    content: '字体加载失败',
+                    showCancel:false,
+                    success(res) {
+                       _this.setData({
+                           fontid:'moren' 
+                       })
+                    }
+                })
+            }
+        })
+    },
+
+    //得到字体
+    getFont:function(){
+        let _this = this;
+        let getFontUrl = loginApi.domin + '/home/index/getfonts';
+        loginApi.requestUrl(_this, getFontUrl, "POST", {
+        }, function (res) {
+            if (res.status == 1) {
+                _this.setData({
+                    fontArr:res.fonts,
+                });
+            }
+        })
     },
 
     //选文字
@@ -101,7 +160,9 @@ Page({
         };
         this.setData({
             currentIndex:index,
-            releaseId: index == 1 ? this.data.classArr[index].id : this.data.releaseId
+            releaseId: index == 1 ? this.data.classArr[index].id : this.data.releaseId,
+            picindex: this.data.nowisTxt == 2 ? 0 : this.data.picindex,
+            txtindex: this.data.nowisTxt == 1 ? 0 : this.data.txtindex,
         });
         this.data.nowisTxt == 1 ? this.getTxt(this.data.classArr[index].id) : this.getPicContent(this.data.classArr[index].id)
         
@@ -122,11 +183,11 @@ Page({
             "title": this.data.nowTxt,
             "imgurl": this.data.nowPic,
             "typeid": this.data.releaseId,
+            "fontid":this.data.fontid,
         }, function (res) {
             if (res.status == 1) {
                 _this.fabuzhitu(res.contentid, res.typeid)
                 // _this.goToDetails(res.contentid,res.typeid,res.imgurl);
-                wx.hideLoading();
             }
         })
     },
@@ -143,7 +204,6 @@ Page({
         }, function (res) {
             if (res.status == 1) {
                 _this.goToDetails(contentid, typeid, res.path);
-                wx.hideLoading();
             }
         })
     },
@@ -223,7 +283,7 @@ Page({
     goToDetails: function (id,typeid,saveUrl) {
         wx.navigateTo({
             url: `/pages/details/details?contentid=${id}&typeid=${typeid}&saveUrl=${saveUrl}`,
-        })
+        });
     },
 
     // 点击下载图片授权检测

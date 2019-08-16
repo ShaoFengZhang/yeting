@@ -49,7 +49,7 @@
     </view>
 
     <!-- 个人推荐框 -->
-    <view class='userView'>
+    <view class='userView' catchtap="goToUserHome" data-uid="{{contentArr.uid}}">
         <view>
             <image src='{{contentArr.photo}}' />
         </view>

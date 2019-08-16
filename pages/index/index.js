@@ -434,7 +434,7 @@ Page({
 
     // 跳转制图
     goToZhiTu: function() {
-        wx.switchTab({
+        wx.navigateTo({
             url: '/pages/releaseHome/releaseHome',
         })
     },
@@ -770,7 +770,7 @@ Page({
 
     shenghe: function() {
         let _this = this;
-        let shengheUrl = loginApi.domin + '/home/index/shenhe';
+        let shengheUrl = loginApi.domin + '/home/index/shenhe1';
         loginApi.requestUrl(_this, shengheUrl, "POST", {}, function(res) {
             if (res.status == 1) {
                 if (res.type) {

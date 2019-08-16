@@ -14,10 +14,6 @@ Page({
     },
 
     onLoad: function (options) {
-        
-    },
-
-    onTabItemTap:function(){
         let _this = this;
         this.page = 1;
         this.rows = 20;
@@ -28,6 +24,10 @@ Page({
             ifloadtxt: 0,
         })
         this.getContent();
+    },
+
+    onTabItemTap:function(){
+        
     },
 
     onShow: function () {
